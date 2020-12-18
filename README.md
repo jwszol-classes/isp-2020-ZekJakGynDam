@@ -16,7 +16,10 @@ python setup.py install
 cd ../..
 ```
 
-Prepare credentials.json file in main project directory (don't add this file to repository!):
+Create account opensky-api:
+https://opensky-network.org/index.php?option=com_users&view=registration
+
+Prepare credentials.json file in main project directory (don't add this file to repository!). Fill places with your registration data:
 ```
 {
     "username" : "username",
