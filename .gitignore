@@ -1,4 +1,5 @@
-api_access_key.json
+opensky-api/
+credentials.json
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
