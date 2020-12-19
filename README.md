@@ -33,7 +33,7 @@ python geoapify_test.py
 
 ### Visualisation
 
-Installing Basemap to run visualisation.py on Windows
+Installing Basemap to run visualisation.py on Windows.
 ```
 https://stackoverflow.com/questions/18109859/how-to-install-matplotlib-basemap-module-on-windows-7-with-winpython-or-any-pyt?fbclid=IwAR0Cmgyeo9AEU2ys13aNhFCN9Iqx1dXsTRsXBUIrs5TgTv9KhJMRMsp2e0g
 ```
