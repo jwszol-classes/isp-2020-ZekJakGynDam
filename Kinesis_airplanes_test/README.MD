@@ -1,5 +1,5 @@
 ## Kinesis - test wykorzystujący API
-KinesisProducer pobiera informacje na temat samolotów znajdujących się w określonym terenie, wysyła do strumienia ich współrzędne geograficzne oraz kierunek, natomiast KinesisConsumerzy pobierają dane, odpytują Geoapify o lokalizację samolotu i wypisują to na standardowe wyjście.
+KinesisProducer pobiera informacje na temat samolotów znajdujących się w określonym terenie, wysyła do strumienia ich współrzędne geograficzne oraz kierunek, natomiast KinesisConsumerzy pobierają dane, odpytują Geoapify i wypisują wynik na standardowe wyjście.
 
 ## Instalacja i konfiguracja - podobnie jak w przypadku przykładowych skryptów
 
