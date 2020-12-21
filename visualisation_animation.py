@@ -1,14 +1,20 @@
 
 import numpy as np
 import matplotlib.pyplot as plt
+from matplotlib.offsetbox import OffsetImage, AnnotationBbox
 from mpl_toolkits.basemap import Basemap
 from matplotlib.animation import FuncAnimation
-
+from PIL import Image
 
 def visualization():
+    airplane_image_path = "src/airplane.png"
+    airplane_image = Image.open(airplane_image_path)
+    airplane_image_resized = airplane_image.resize((16,16))
+    airplane_image_resized_arr = np.asarray(airplane_image_resized)
+    offsetImage = OffsetImage(airplane_image_resized_arr)
+
     # Map initialization
-    fig = plt.figure()
-    axes = fig.add_subplot(1,1,1)
+    fig, ax = plt.subplots()
     fig.canvas.toolbar.pack_forget()
     # plt.subplots_adjust(left=-.02, right=1, top=1, bottom=0)
 
@@ -22,19 +28,34 @@ def visualization():
     map_plot = Basemap(projection='mill',llcrnrlat=49,urcrnrlat=55,
                         llcrnrlon=14.116667,urcrnrlon=24.15,resolution='f')
 
+    x_E, _   = map_plot(24.15, 0)
+    x_W, _   = map_plot(14.116667, 0)
+    _,   y_N = map_plot(0, 55)
+    _,   y_S = map_plot(0, 49)
+
+    distance_E_W = x_E - x_W
+    distance_N_S = y_N - y_S
+    offset_text_city_x = int(5*distance_E_W/400)
+    offset_text_city_y = int(5*distance_N_S/400)
+
+    offset_text_airplace_x = int(14*distance_E_W/600)
+    offset_text_airplace_y = int(14*distance_N_S/600)
+
     # map_plot = Basemap(width=1200, height=900, projection='mill',
     #                     llcrnrlat=49,urcrnrlat=55, llcrnrlon=14.116667,urcrnrlon=24.15,resolution='f')
 
     # map_plot.bluemarble()
     map_plot.drawcoastlines(color='gray')
     map_plot.shadedrelief()
-    map_plot.drawcountries()
+    map_plot.drawcountries(linewidth=1)
+    map_plot.drawrivers(color="b")
+    # map_plot.drawlsmask(land_color=(0,0,0,0), ocean_color=(255,0,0,255))
 
     # ploting cities
     for i in range(len(x_city)):
         xo, yo = map_plot(x_city[i], y_city[i])
-        plt.plot(xo, yo, 'ok', markersize=5)
-        plt.text(xo, yo, city_name[i], fontsize=10)
+        plt.plot(xo, yo, 'ro', markersize=5)
+        plt.text(xo+offset_text_city_x, yo+offset_text_city_y, city_name[i], fontsize=10)
 
     #coordinates of planes
     x_p = [17.1, 22.2, 21.0]
@@ -48,15 +69,13 @@ def visualization():
     # Get handles for axes
     ln_planes, = map_plot.plot(x_airplanes, y_airplanes, 'bo', markersize=3)
 
-
     def init():
         ln_planes.set_data([], [])
         return ln_planes,
 
     def update(frame):
-
-        dx = np.random.randint(0, 10)
-        dy = np.random.randint(0, 10)
+        dx = np.random.randint(0, 5)
+        dy = np.random.randint(0, 5)
         x_p_temp_list = []
         y_p_temp_list = []
         for i in range(len(x_p)):
@@ -64,10 +83,19 @@ def visualization():
             x_p_temp_list.append(x_p_temp)
             y_p_temp_list.append(y_p_temp)
 
-        ln_planes.set_data(x_p_temp_list, y_p_temp_list)
-        return ln_planes,
+        artists = []
 
-    ani = FuncAnimation(plt.gcf(), update, init_func=init, interval=1, blit=True)
+        for i in range(len(x_p_temp_list)):
+            artists.append(ax.text(x_p_temp_list[i]+offset_text_airplace_x, 
+                                   y_p_temp_list[i]+offset_text_airplace_y, plane_name[i], fontsize=10))
+            artist = ax.add_artist(AnnotationBbox(offsetImage, (x_p_temp_list[i], y_p_temp_list[i]), frameon=False))
+            artists.append(artist)
+
+        ln_planes.set_data(x_p_temp_list, y_p_temp_list)
+        artists.append(ln_planes)
+        return artists
+
+    ani = FuncAnimation(plt.gcf(), update, init_func=init, interval=100, blit=True)
     # plt.tight_layout(pad=0.05)
     plt.show()
 
