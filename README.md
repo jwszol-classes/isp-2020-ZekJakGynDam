@@ -8,6 +8,10 @@ python -m virtualenv venv
 cd venv/Scripts/activate
 ```
 
+#### Setup Opensky-API
+Create account on opensky-api:
+https://opensky-network.org/index.php?option=com_users&view=registration
+
 Install opensky-api:
 ```
 git clone https://github.com/openskynetwork/opensky-api
@@ -16,11 +20,21 @@ python setup.py install
 cd ../..
 ```
 
-Create account on opensky-api:
-https://opensky-network.org/index.php?option=com_users&view=registration
-
+#### Setup Geoapify
 Create account on geoapify:
 https://myprojects.geoapify.com/login
+
+#### Setup Basemap
+
+#### Windows
+
+* Download **basemap‑1.2.2‑cp39‑cp39‑win_amd64.whl** file from following link https://www.lfd.uci.edu/~gohlke/pythonlibs/#basemap and save it in project main directory.
+* write following command:
+```
+pip install basemap‑1.2.2‑cp39‑cp39‑win_amd64.whl
+```
+
+#### Credentials
 
 Prepare credentials.json file in main project directory by duplicate credentials_default.json and changing its name (don't add this file to repository!). Fill places with your registrations and api keys data
 
@@ -29,11 +43,5 @@ Prepare credentials.json file in main project directory by duplicate credentials
 ```
 python opensky_test.py
 python geoapify_test.py
+python visualisation.py
 ```
-
-### Visualisation
-
-Installing Basemap to run visualisation.py on Windows.
-
-https://stackoverflow.com/questions/18109859/how-to-install-matplotlib-basemap-module-on-windows-7-with-winpython-or-any-pyt?fbclid=IwAR0Cmgyeo9AEU2ys13aNhFCN9Iqx1dXsTRsXBUIrs5TgTv9KhJMRMsp2e0g
-

@@ -12,6 +12,7 @@ password = credentials["opensky_api"]["password"]
 api = OpenSkyApi(username, password)
 
 poland_bbox = (49.0273953314, 54.8515359564, 14.0745211117,24.0299857927)
+poland_bbox = (49, 55, 14.116667,24.15)
 states = api.get_states(bbox=poland_bbox)
 pp.pprint(states)
 
