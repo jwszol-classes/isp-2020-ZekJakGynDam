@@ -34,9 +34,24 @@ https://myprojects.geoapify.com/login
 pip install basemap‑1.2.2‑cp39‑cp39‑win_amd64.whl
 ```
 
+##### Linux
+
+#### Kinesis
+
+
 #### Credentials
 
 Prepare credentials.json file in main project directory by duplicate credentials_default.json and changing its name (don't add this file to repository!). Fill places with your registrations and api keys data
+
+
+
+
+#### AWS
+
+
+#### Communication
+* PuTTy
+* Xming
 
 
 ### Run
