@@ -26,7 +26,7 @@ https://myprojects.geoapify.com/login
 
 #### Setup Basemap
 
-### Windows
+##### Windows
 
 * Download **basemap‑1.2.2‑cp39‑cp39‑win_amd64.whl** file from following link https://www.lfd.uci.edu/~gohlke/pythonlibs/#basemap and save it in project main directory.
 * write following command:
