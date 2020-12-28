@@ -23,7 +23,7 @@ class KinesisProducer(threading.Thread):
     def prep_records(self):
         data=OPENSKY.get_airplanes(username, password)      
         for s in data.states:
-            airplane = str(str(s.longitude) + " " + str(s.latitude) + " " + str(s.heading))
+            airplane = str(str(s.icao24) + "|" str(s.timestamp) + "|" str(s.latitude) + "|" + str(s.longitude) + "|" + str(s.heading))
             self.put_record(airplane)
         
     def put_record(self, airplane):
