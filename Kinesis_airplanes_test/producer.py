@@ -1,4 +1,6 @@
 import time
+import datetime
+from datetime import timezone
 import threading
 import boto3
 import m_opensky as OPENSKY
@@ -23,7 +25,9 @@ class KinesisProducer(threading.Thread):
     def prep_records(self):
         data=OPENSKY.get_airplanes(username, password)      
         for s in data.states:
-            airplane = str(str(s.icao24) + "|" str(s.timestamp) + "|" str(s.latitude) + "|" + str(s.longitude) + "|" + str(s.heading))
+            timestamp=datetime.datetime.now()
+            timestamp=timestamp.replace(tzinfo=timezone.utc).timestamp()
+            airplane = str(str(s.icao24) + "|" str(timestamp) + "|" str(s.latitude) + "|" + str(s.longitude) + "|" + str(s.heading))
             self.put_record(airplane)
         
     def put_record(self, airplane):
