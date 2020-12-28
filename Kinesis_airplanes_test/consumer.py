@@ -28,8 +28,8 @@ class KinesisConsumer:
         for part_key, data in self.iter_records(records):
             if part_key==self.consumer_id:
                 params = {
-                'lat': data[0],
-                'lon': data[1],
+                'lat': data[2],
+                'lon': data[3],
                 'apiKey': geo_apikey }
                 country = GEOAPIFY.get_country(params)
                 if country!="ERR":
@@ -41,7 +41,7 @@ class KinesisConsumer:
         for record in records:
             part_key = record['PartitionKey']
             data = record['Data']
-            data = [float(i) for i in data.split()]
+            data = [float(i) for i in data.split("|")]
             yield part_key, data
 
     def run(self):
