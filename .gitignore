@@ -1,3 +1,5 @@
+AWSCLIV2.msi
+aws_lambda/
 *.whl
 opensky-api/
 credentials.json
