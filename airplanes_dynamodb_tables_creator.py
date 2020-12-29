@@ -1,5 +1,6 @@
 import boto3
 
+
 def create_table(dynamodb, table_name, key_schema, attribute_definitions, provisioned_throughput):
     table = dynamodb.create_table(
         TableName = table_name,
@@ -38,6 +39,7 @@ def create_historical_table(dynamodb, table_name):
     table = create_table(dynamodb, table_name, key_schema, attribute_definitions, provisioned_throughput)
     return table
 
+
 def create_last_table(dynamodb, table_name):
     key_schema = [
         {
@@ -59,8 +61,8 @@ def create_last_table(dynamodb, table_name):
     return table
 
 
-def create_airplanes_tables(dynamodb):
-    dynamodb_client = boto3.client('dynamodb')
+def create_airplanes_tables(dynamodb, region_name):
+    dynamodb_client = boto3.client('dynamodb', region_name=region_name)
     existing_tables = dynamodb_client.list_tables()['TableNames']
 
     table_name = "AirplanesHistorical"
@@ -79,5 +81,6 @@ def create_airplanes_tables(dynamodb):
 
 
 if __name__ == "__main__":
-    dynamodb = boto3.resource('dynamodb')
-    create_airplanes_tables(dynamodb)
+    region_name = 'us-east-1'
+    dynamodb = boto3.resource('dynamodb', region_name=region_name)
+    create_airplanes_tables(dynamodb, region_name)

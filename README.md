@@ -24,6 +24,122 @@ cd ../..
 Create account on geoapify:
 https://myprojects.geoapify.com/login
 
+
+#### EC2
+##### Launch instance
+* go to EC2 service
+* click **Launch instance** and choose **Launch instance**
+* Choose **Ubuntu Server 20.04 LTS (HVM)** AMI and click **Select**
+* choose it.micro Instance Type and click **Review and Launch**
+* click **Launch**
+* check checkbox and click **Launch Instances**
+* click **View Instances**
+* copy **Public IPv4 DNS** of your instance (for example "ec2-18-207-187-224.compute-1.amazonaws.com")
+
+##### Connect with instance
+* open **PuTTY**
+* In **Category** window go to Connection/SSH/Auth and browse for **.ppk** key file
+* in **Category** window go to Session and fill Host Name (or IP address) inputbox (for example "ubuntu@ec2-18-207-187-224.compute-1.amazonaws.com")
+* click **Open**
+* on PuTTY Security Alert popup window choose **yes**
+
+
+##### Instance setup - configure vim
+* paste following lines into .vimrc file
+```
+set nu
+syntax on
+set autoindent
+set tabstop=4
+set mouse=a
+:colorscheme zellner
+```
+
+##### Instance setup - configure AWS
+* install AWS
+```
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+sudo apt-get install unzip
+unzip awscliv2.zip
+sudo ./aws/install
+rm awscliv2.zip
+```
+* create folder for AWS credentials file
+```
+mkdir .aws
+```
+* open labs.vocareum page
+* click **Account Details**
+* click **show**
+* copy showed text
+* paste it into ~/.aws/credentials
+
+
+##### Instance setup - configure git
+* write following command with your data:
+```
+git config --global user.name "full name"
+git config --global user.email "email adress"
+```
+* generate ssh keys:
+```
+ssh-keygen -o
+```
+* push **enter** button for each communicate (3 times)
+* show public key
+```
+cat .ssh/id_rsa.pub
+```
+* log in to **github** service
+* go to **Settings**
+* go to SSH and GPG keys
+* click **New SSH key**
+* provide **Title** (for example "ec2_ubuntu_instance") and **Key** (showed earlier public key)
+* click **Add SSH key**
+
+##### Instance setup - prepeare repository
+* write following commands to create directory for all projects:
+```
+mkdir Projects
+cd Projects
+```
+* install pip for python3
+```
+mkdir get_pip
+curl https://bootstrap.pypa.io/get-pip.py -o get_pip/get-pip.py
+python3 get_pip/get-pip.py
+```
+* install virtualenv for python3
+```
+python3 -m pip install virtualenv
+```
+* download **isp-2020-ZekJakGynDam** repository:
+```
+git clone git@github.com:jwszol-classes/isp-2020-ZekJakGynDam.git
+```
+and write "yes" when communicate shows
+* got to repository directory
+```
+cd isp-2020-ZekJakGynDam/
+```
+* create virtual environment and activate it
+```
+python3 -m virtualenv venv
+source venv/bin/activate
+```
+* install opensky-api in virtual environment
+```
+git clone https://github.com/openskynetwork/opensky-api
+cd opensky-api/python
+python setup.py install
+cd ../..
+rm -r -f opensky-api/
+```
+* install boto3
+```
+pip install boto3
+```
+
 #### Setup Basemap
 
 ##### Windows
