@@ -38,7 +38,7 @@ def create_historical_table(dynamodb, table_name):
     table = create_table(dynamodb, table_name, key_schema, attribute_definitions, provisioned_throughput)
     return table
 
-def create_actual_table(dynamodb, table_name):
+def create_last_table(dynamodb, table_name):
     key_schema = [
         {
             'AttributeName': 'ICAO24',
@@ -70,9 +70,9 @@ def create_airplanes_tables(dynamodb):
     else:
         print(table_name, "status: table already exists and thus isn't created")
 
-    table_name = "AirplanesActual"
+    table_name = "AirplanesLast"
     if table_name not in existing_tables:
-        table = create_actual_table(dynamodb, table_name)
+        table = create_last_table(dynamodb, table_name)
         print(table_name, "status:", table.table_status)
     else:
         print(table_name, "status: table already exists and thus isn't created")
