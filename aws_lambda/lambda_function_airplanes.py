@@ -1,3 +1,4 @@
+from decimal import Decimal
 import json
 import base64
 import reverse_geocode
@@ -23,12 +24,12 @@ def create_table_item(airplane_data, delimiter="|"):
 
     # We can add more data here
     item = {
-        "icao24":    airplane_data_split[0],
-        "timestamp": float(airplane_data_split[1]),
+        "ICAO24":    airplane_data_split[0],
+        "timestamp": Decimal(airplane_data_split[1]),
         "datetime":  datetime_formated,
-        "latitude":  float(airplane_data_split[2]),
-        "longitude": float(airplane_data_split[3]),
-        "heading":   float(airplane_data_split[4])
+        "latitude":  Decimal(airplane_data_split[2]),
+        "longitude": Decimal(airplane_data_split[3]),
+        "heading":   Decimal(airplane_data_split[4])
     }
     return item
 
@@ -49,16 +50,16 @@ def add_record(item, table):
     table.put_item(Item=item)
 
 
-def lambda_handler(event, context):
+def lambda_handler_airplanes(event, context):
     # TODO implement
 
     # Set configuration variables
     country = "Poland"
 
     # Set DynamoDB variables
-    dynamodb             = boto3.resource('dynamodb')
-    airplane_table       = dynamodb.Table('Airplanes')
-    airplaneICAO24_table = dynamodb.Table('AirplanesICAO24')
+    dynamodb                   = boto3.resource("dynamodb")
+    airplanes_historical_table = dynamodb.Table("AirplanesHistorical")
+    airplanes_actual_table     = dynamodb.Table("AirplanesActual")
 
     # Main loop for each record
     for record in event["Records"]:
@@ -75,8 +76,8 @@ def lambda_handler(event, context):
             continue
 
         # Update DynamoDB tables
-        add_record(item, airplane_table)
-        add_record(item, airplaneICAO24_table)
+        add_record(item, airplanes_actual_table)
+        add_record(item, airplanes_historical_table)
     
     return {
         'statusCode': 200,
