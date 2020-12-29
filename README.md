@@ -139,6 +139,18 @@ rm -r -f opensky-api/
 ```
 pip install boto3
 ```
+##### Instance setup - create image
+* go to EC2 service
+* click **Instances (running)**
+* click right mouse button on instance
+* choose **Image and templates**
+* choose **Create image**
+* provide **Image name** (for example "ec2_ubuntu_instance_airplanes")
+* uncheck **Delete on termination** checkbox
+* click **Create image**
+* go to EC2 service
+* go to Images/AMIs
+* wait until status of your image change into "available" (don't terminate instance until then!!!)
 
 #### Setup Basemap
 
