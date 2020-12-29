@@ -1,6 +1,6 @@
 # Airplanes
 
-### Setup
+## Setup
 
 Create virtual environment:
 ```
@@ -8,7 +8,7 @@ python -m virtualenv venv
 cd venv/Scripts/activate
 ```
 
-#### Setup Opensky-API
+### Setup Opensky-API
 Create account on opensky-api:
 https://opensky-network.org/index.php?option=com_users&view=registration
 
@@ -20,13 +20,13 @@ python setup.py install
 cd ../..
 ```
 
-#### Setup Geoapify
+### Setup Geoapify
 Create account on geoapify:
 https://myprojects.geoapify.com/login
 
 
-#### EC2
-##### Launch instance
+### EC2
+#### Launch instance
 * go to EC2 service
 * click **Launch instance** and choose **Launch instance**
 * Choose **Ubuntu Server 20.04 LTS (HVM)** AMI and click **Select**
@@ -36,7 +36,7 @@ https://myprojects.geoapify.com/login
 * click **View Instances**
 * copy **Public IPv4 DNS** of your instance (for example "ec2-18-207-187-224.compute-1.amazonaws.com")
 
-##### Connect with instance
+#### Connect with instance
 * open **PuTTY**
 * In **Category** window go to Connection/SSH/Auth and browse for **.ppk** key file
 * in **Category** window go to Session and fill Host Name (or IP address) inputbox (for example "ubuntu@ec2-18-207-187-224.compute-1.amazonaws.com")
@@ -44,7 +44,7 @@ https://myprojects.geoapify.com/login
 * on PuTTY Security Alert popup window choose **yes**
 
 
-##### Instance setup - configure vim
+#### Instance setup - configure vim
 * paste following lines into .vimrc file
 ```
 set nu
@@ -55,7 +55,7 @@ set mouse=a
 :colorscheme zellner
 ```
 
-##### Instance setup - configure AWS
+#### Instance setup - configure AWS
 * install AWS
 ```
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
@@ -75,7 +75,7 @@ mkdir .aws
 * paste it into ~/.aws/credentials
 
 
-##### Instance setup - configure git
+#### Instance setup - configure git
 * write following command with your data:
 ```
 git config --global user.name "full name"
@@ -97,7 +97,7 @@ cat .ssh/id_rsa.pub
 * provide **Title** (for example "ec2_ubuntu_instance") and **Key** (showed earlier public key)
 * click **Add SSH key**
 
-##### Instance setup - prepeare repository
+#### Instance setup - prepeare repository
 * write following commands to create directory for all projects:
 ```
 mkdir Projects
@@ -139,7 +139,7 @@ rm -r -f opensky-api/
 ```
 pip install boto3
 ```
-##### Instance setup - create image
+#### Instance setup - create image
 * go to EC2 service
 * click **Instances (running)**
 * click right mouse button on instance
@@ -152,9 +152,9 @@ pip install boto3
 * go to Images/AMIs
 * wait until status of your image change into "available" (don't terminate instance until then!!!)
 
-#### Setup Basemap
+### Setup Basemap
 
-##### Windows
+#### Windows
 
 * Download **basemap‑1.2.2‑cp39‑cp39‑win_amd64.whl** file from following link https://www.lfd.uci.edu/~gohlke/pythonlibs/#basemap and save it in project main directory.
 * write following command in cmd:
@@ -162,13 +162,13 @@ pip install boto3
 pip install basemap‑1.2.2‑cp39‑cp39‑win_amd64.whl
 ```
 
-##### Linux
+#### Linux
 
-#### Kinesis
+### Kinesis
 
 
-#### AWS Lambda
-##### Creating Lambda Function 
+### AWS Lambda
+#### Creating Lambda Function 
 * Go under following URL link https://console.aws.amazon.com/lambda/home?region=us-east-1#/functions
 * click **Create function**
 * choose **Author from scratch**
@@ -177,12 +177,12 @@ pip install basemap‑1.2.2‑cp39‑cp39‑win_amd64.whl
 * expand **Change default execution role** and remember execution role name assigned to lambda function (for example "lambda_airplanes-role-p5nao7pr")
 * click **Create function**
 
-##### Adding layer with numpy and scipy modules
+#### Adding layer with numpy and scipy modules
 * click **Layers** and choose **Add a layer**
 * choose **AWS layers** ("AWSLambda-Python38-SciPy1x") and **Version** ("29")
 * click **Add**
 
-##### Adding Trigger
+#### Adding Trigger
 * click **Add trigger**
 * select a **trigger** ("Kinesis")
 * choose **Kinesis stream** (name of earlier created stream, for example "stream_airplanes")
@@ -194,7 +194,7 @@ pip install basemap‑1.2.2‑cp39‑cp39‑win_amd64.whl
 * click **Attach policy**
 * go back to trigger configuration tab and click **Add**
 
-##### Adding resources
+#### Adding resources
 * go to isp-2020-ZekJakGynDam\aws_lambda directory
 * zip lambda_function_airplanes.py and reverse_geocode directory into .zip archive (for example "aws_lambda.zip")
 * in lambda function page click on **lambda_airplanes**
@@ -205,24 +205,24 @@ pip install basemap‑1.2.2‑cp39‑cp39‑win_amd64.whl
 * change Handler into "lambda_function_airplanes.lambda_handler_airplanes"
 * click **Save**
 
-##### Congratulations
+#### Congratulations
 You have just configured AWS Lambda function for checking if airplane is above Poland and updating DynamoDB tables! Congratulations.
 
-#### Credentials
+### Credentials
 Prepare credentials.json file in main project directory by duplicate credentials_default.json and changing its name (don't add this file to repository!). Fill places with your registrations and api keys data
 
 
 
 
-#### AWS
+### AWS
 
 
-#### Communication
+### Communication
 * PuTTy
 * Xming
 
 
-### Run
+## Run
 ```
 python opensky_test.py
 python geoapify_test.py
