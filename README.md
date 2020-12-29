@@ -26,6 +26,16 @@ https://myprojects.geoapify.com/login
 
 
 ### EC2
+#### Generate key pairs
+* go to EC2 service
+* go to Network & Security/Key Pairs
+* click **Create key pair**
+* provide **Name** (for example key_test)
+* choose **File format** (ppk)
+* click **Create key pair**
+* download .ppk file into desired directory
+
+
 #### Launch instance
 * go to EC2 service
 * click **Launch instance** and choose **Launch instance**
@@ -38,7 +48,7 @@ https://myprojects.geoapify.com/login
 
 #### Connect with instance
 * open **PuTTY**
-* In **Category** window go to Connection/SSH/Auth and browse for **.ppk** key file
+* In **Category** window go to Connection/SSH/Auth and browse for earlier downloaded .ppk key file
 * in **Category** window go to Session and fill Host Name (or IP address) inputbox (for example "ubuntu@ec2-18-207-187-224.compute-1.amazonaws.com")
 * click **Open**
 * on PuTTY Security Alert popup window choose **yes**
