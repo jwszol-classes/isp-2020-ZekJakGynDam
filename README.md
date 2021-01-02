@@ -179,7 +179,7 @@ pip install basemap‑1.2.2‑cp39‑cp39‑win_amd64.whl
 
 ### AWS Lambda
 #### Creating Lambda Function 
-* Go under following URL link https://console.aws.amazon.com/lambda/home?region=us-east-1#/functions
+* Go to Lambda service
 * click **Create function**
 * choose **Author from scratch**
 * provide **Function name** (for example "lambda_airplanes")
