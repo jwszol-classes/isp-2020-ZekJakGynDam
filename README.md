@@ -342,3 +342,7 @@ or
 ```
 python visualisation_animation_plotly.py
 ```
+In second case open following url link in browser:
+```
+http://127.0.0.1:8050/
+```
