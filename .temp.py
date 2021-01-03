@@ -22,7 +22,7 @@ app.layout = html.Div(
         dcc.Graph(id='live-update-graph'),
         dcc.Interval(
             id='interval-component',
-            interval=15*1000, # in milliseconds
+            interval=2*1000, # in milliseconds
             n_intervals=0
         )
     ])
@@ -31,23 +31,23 @@ app.layout = html.Div(
               Input('interval-component', 'n_intervals'))
 def update_graph_live(n):
     ##tutaj nalezy zmienic na ciagniecie danych z AWS-a
-    res = list_airplanes()
-    print(res)  
-    state=api.get_states(bbox=(49.0273953314, 54.8515359564, 14.0745211117, 24.0299857927)).states
+    # res = list_airplanes()
+    # print(res)  
+    # state=api.get_states(bbox=(49.0273953314, 54.8515359564, 14.0745211117, 24.0299857927)).states
 
-    data = {
-        'Latitude': [],
-        'Longitude': [],
-        'ICAO': []
-    }
+    # data = {
+    #     'Latitude': [],
+    #     'Longitude': [],
+    #     'ICAO': []
+    # }
 
-    # Zbieranie danych
-    for i in range(len(state)):
-        data['Longitude'].append(state[i].longitude )
-        data['Latitude'].append (state[i].latitude  )
-        data['ICAO'].append(state[i].icao24)
-
-    fig.update_traces(marker=go.scattermapbox.Marker( size=5, color="rgb(100, 100, 100)", opacity=0.5),mode='markers')#chamskie ale zamalowuje wszystkie stare punkty na szaro
+    # # Zbieranie danych
+    # for i in range(len(state)):
+    #     data['Longitude'].append(state[i].longitude )
+    #     data['Latitude'].append (state[i].latitude  )
+    #     data['ICAO'].append(state[i].icao24)
+    data=list_airplanes()
+    fig.update_traces(marker=go.scattermapbox.Marker( size=5, color="rgb(100, 100, 100)", opacity=0.0),mode='markers')#chamskie ale zamalowuje wszystkie stare punkty na szaro
 
     fig.add_trace(go.Scattermapbox(
         #name="Plane",

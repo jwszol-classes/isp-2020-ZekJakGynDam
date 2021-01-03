@@ -166,12 +166,12 @@ pip install boto3
 
 #### Windows
 
-* Download **basemap‑1.2.2‑cp39‑cp39‑win_amd64.whl** file from following link https://www.lfd.uci.edu/~gohlke/pythonlibs/#basemap and save it in project main directory.
+* Download **basemap‑1.2.2‑cpxx‑cpxx‑win_amd64.whl** file from following link https://www.lfd.uci.edu/~gohlke/pythonlibs/#basemap and save it in project main directory.
 * write following command in cmd:
 ```
-pip install basemap‑1.2.2‑cp39‑cp39‑win_amd64.whl
+pip install basemap‑1.2.2‑cpxx‑cpxx‑win_amd64.whl
 ```
-
+where xx is your python version e.g. 38 for python 3.8
 #### Linux
 
 ### Kinesis
