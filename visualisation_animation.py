@@ -74,17 +74,20 @@ def visualization():
         return ln_planes,
 
     def update(frame):
-        dx = np.random.randint(0, 5)
-        dy = np.random.randint(0, 5)
+        # dane = metodaPawloDamiana()
         x_p_temp_list = []
         y_p_temp_list = []
+
+        # x_p -> dane["szerokosc geograficzna"]
+        # y_p -> dane["wysokosc geograficzna"]
         for i in range(len(x_p)):
-            x_p_temp, y_p_temp = map_plot(x_p[i]+dx, y_p[i]+dy)
+            x_p_temp, y_p_temp = map_plot(x_p[i], y_p[i])
             x_p_temp_list.append(x_p_temp)
             y_p_temp_list.append(y_p_temp)
 
         artists = []
 
+        # plane_name -> dane["ICAO24"]
         for i in range(len(x_p_temp_list)):
             artists.append(ax.text(x_p_temp_list[i]+offset_text_airplace_x, 
                                    y_p_temp_list[i]+offset_text_airplace_y, plane_name[i], fontsize=10))

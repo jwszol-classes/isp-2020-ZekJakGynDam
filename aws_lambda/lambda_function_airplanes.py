@@ -59,7 +59,7 @@ def lambda_handler_airplanes(event, context):
     # Set DynamoDB variables
     dynamodb                   = boto3.resource("dynamodb")
     airplanes_historical_table = dynamodb.Table("AirplanesHistorical")
-    airplanes_actual_table     = dynamodb.Table("AirplanesActual")
+    airplanes_actual_table     = dynamodb.Table("AirplanesLast")
 
     # Main loop for each record
     for record in event["Records"]:
