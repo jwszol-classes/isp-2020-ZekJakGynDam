@@ -1,0 +1,21 @@
+{"Records": [
+        {"kinesis": {"kinesisSchemaVersion": "1.0", "partitionKey": "0", "sequenceNumber": "49614036799789508575376731214768572960243865894449577986", "data": "NDg5MzI4fDE2MDkxOTg0NzkuMTgyNzk0fDUwLjMzNzl8MTkuNjc2M3wyMDMuNDU=", "approximateArrivalTimestamp": 1609194879.504
+            }, "eventSource": "aws:kinesis", "eventVersion": "1.0", "eventID": "shardId-000000000000: 49614036799789508575376731214768572960243865894449577986", "eventName": "aws:kinesis:record", "invokeIdentityArn": "arn:aws:iam: : 340900857390:role/service-role/lambda_test4-role-5lmiy052", "awsRegion": "us-east-1", "eventSourceARN": "arn:aws:kinesis:us-east-1: 340900857390:stream/testowy2"
+        },
+        {"kinesis": {"kinesisSchemaVersion": "1.0", "partitionKey": "1", "sequenceNumber": "49614036799789508575376731214769781886063480523624284162", "data": "NDg0NTVlfDE2MDkxOTg0NzkuMzMxNDQzfDU0LjE4NXwyMC43MjIzfDgzLjk3", "approximateArrivalTimestamp": 1609194879.675
+            }, "eventSource": "aws:kinesis", "eventVersion": "1.0", "eventID": "shardId-000000000000: 49614036799789508575376731214769781886063480523624284162", "eventName": "aws:kinesis:record", "invokeIdentityArn": "arn:aws:iam: : 340900857390:role/service-role/lambda_test4-role-5lmiy052", "awsRegion": "us-east-1", "eventSourceARN": "arn:aws:kinesis:us-east-1: 340900857390:stream/testowy2"
+        },
+        {"kinesis": {"kinesisSchemaVersion": "1.0", "partitionKey": "0", "sequenceNumber": "49614036799789508575376731214770990811883095152798990338", "data": "NDI0M2ZmfDE2MDkxOTg0NzkuNDk5Mjk2fDU0LjM4MTl8MTkuNDM0NXw2Mi41NA==", "approximateArrivalTimestamp": 1609194879.819
+            }, "eventSource": "aws:kinesis", "eventVersion": "1.0", "eventID": "shardId-000000000000: 49614036799789508575376731214770990811883095152798990338", "eventName": "aws:kinesis:record", "invokeIdentityArn": "arn:aws:iam: : 340900857390:role/service-role/lambda_test4-role-5lmiy052", "awsRegion": "us-east-1", "eventSourceARN": "arn:aws:kinesis:us-east-1: 340900857390:stream/testowy2"
+        },
+        {"kinesis": {"kinesisSchemaVersion": "1.0", "partitionKey": "1", "sequenceNumber": "49614036799789508575376731214772199737702709781973696514", "data": "NzZjZGE1fDE2MDkxOTg0NzkuNjQ4MTQ3fDU0LjIzNXwyMS4zNDUzfDg1LjE0", "approximateArrivalTimestamp": 1609194879.967
+            }, "eventSource": "aws:kinesis", "eventVersion": "1.0", "eventID": "shardId-000000000000: 49614036799789508575376731214772199737702709781973696514", "eventName": "aws:kinesis:record", "invokeIdentityArn": "arn:aws:iam: : 340900857390:role/service-role/lambda_test4-role-5lmiy052", "awsRegion": "us-east-1", "eventSourceARN": "arn:aws:kinesis:us-east-1: 340900857390:stream/testowy2"
+        },
+        {"kinesis": {"kinesisSchemaVersion": "1.0", "partitionKey": "0", "sequenceNumber": "49614036799789508575376731214773408663522324411148402690", "data": "NDhjNWU3fDE2MDkxOTg0NzkuNzkyODMxfDUyLjM3Nzh8MTQuMzU5N3wyNTYuODQ=", "approximateArrivalTimestamp": 1609194880.119
+            }, "eventSource": "aws:kinesis", "eventVersion": "1.0", "eventID": "shardId-000000000000: 49614036799789508575376731214773408663522324411148402690", "eventName": "aws:kinesis:record", "invokeIdentityArn": "arn:aws:iam: : 340900857390:role/service-role/lambda_test4-role-5lmiy052", "awsRegion": "us-east-1", "eventSourceARN": "arn:aws:kinesis:us-east-1: 340900857390:stream/testowy2"
+        },
+        {"kinesis": {"kinesisSchemaVersion": "1.0", "partitionKey": "1", "sequenceNumber": "49614036799789508575376731214774617589341939040323108866", "data": "NDI0MjdkfDE2MDkxOTg0NzkuOTU0ODA3fDUzLjc5Mjl8MTkuMzA0fDI1NS4zNw==", "approximateArrivalTimestamp": 1609194880.283
+            }, "eventSource": "aws:kinesis", "eventVersion": "1.0", "eventID": "shardId-000000000000: 49614036799789508575376731214774617589341939040323108866", "eventName": "aws:kinesis:record", "invokeIdentityArn": "arn:aws:iam: : 340900857390:role/service-role/lambda_test4-role-5lmiy052", "awsRegion": "us-east-1", "eventSourceARN": "arn:aws:kinesis:us-east-1: 340900857390:stream/testowy2"
+        }
+    ]
+}
