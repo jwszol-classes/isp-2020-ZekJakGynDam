@@ -186,6 +186,7 @@ where xx is your python version e.g. 38 for python 3.8
 * provide **Number of open shards** as 1
 * click **Create data stream**
 
+
 ### AWS Lambda
 #### Creating Lambda Function 
 * go to Lambda service
@@ -196,10 +197,12 @@ where xx is your python version e.g. 38 for python 3.8
 * expand **Change default execution role** and remember execution role name assigned to lambda function (for example "airplanes_lambda_function-role-16dg8abt")
 * click **Create function**
 
+
 #### Adding layer with numpy and scipy modules
 * click **Layers** and choose **Add a layer**
 * choose **AWS layers** ("AWSLambda-Python38-SciPy1x") and **Version** ("29")
 * click **Add**
+
 
 #### Adding Trigger
 * click **Add trigger**
@@ -232,7 +235,6 @@ where xx is your python version e.g. 38 for python 3.8
 * click **Review policy**
 * provide name of policy (for example "AWSLambdaMicroserviceExecutionRole")
 * click **Create policy**
-
 * click **Create policy**
 * choose **JSON**
 * paste following code into input text
@@ -264,6 +266,7 @@ where xx is your python version e.g. 38 for python 3.8
 * click **Attach policy**
 * go back to trigger configuration tab and click **Add**
 
+
 #### Adding resources
 * go to isp-2020-ZekJakGynDam\aws_lambda directory
 * zip airplanes_lambda_function.py and reverse_geocode directory into .zip archive (for example "aws_lambda.zip")
@@ -275,6 +278,7 @@ where xx is your python version e.g. 38 for python 3.8
 * change Handler into "airplanes_lambda_function.airplanes_lambda_handler"
 * click **Save**
 
+
 #### Configuration
 * go under **Basic settings** section and click **Edit**
 * set **Memory (MB)** as 1024
@@ -285,7 +289,7 @@ where xx is your python version e.g. 38 for python 3.8
 You have just configured AWS Lambda function for checking if airplane is above Poland and updating DynamoDB tables! Congratulations.
 
 ### Credentials
-Prepare credentials.json file in main project directory by duplicate credentials_default.json and changing its name (don't add this file to repository!). Fill places with your registrations and access token data
+Prepare credentials.json file in main project directory by duplicate credentials_default.json and changing its name (don't add this file to repository!). Fill places with your registrations and access token data.
 
 
 ### Local machine configuration
@@ -322,15 +326,15 @@ C:\Users\USER\.aws\config:
 
 * run following command in virtual environment
 ```
-pip install boto3
+pip install -r requirements.txt
 ```
 
 ## Run
-On EC2 instance run:
+On EC2 instance run to read airplanes data:
 ```
 python Kinesis_airplanes_test\producer.py
 ```
-On local machine run:
+On local machine run to visualization airplanes:
 ```
 python visualisation_animation_basemap.py
 ```
