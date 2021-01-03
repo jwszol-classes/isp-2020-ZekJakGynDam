@@ -90,8 +90,8 @@ def visualization():
         plane_name=data["ICAO"]
 
         for i in range(len(x_p_temp_list)):
-
-            rotated = airplane_image.rotate(data['Heading'][i])
+            degree_correction = -90
+            rotated = airplane_image.rotate(data['Heading'][i] + degree_correction)
             airplane_image_resized = rotated.resize((16,16))
 
             airplane_image_resized_arr = np.asarray(airplane_image_resized)
