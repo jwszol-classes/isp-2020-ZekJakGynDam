@@ -288,10 +288,6 @@ where xx is your python version e.g. 38 for python 3.8
 #### Congratulations
 You have just configured AWS Lambda function for checking if airplane is above Poland and updating DynamoDB tables! Congratulations.
 
-### Credentials
-Prepare credentials.json file in main project directory by duplicate credentials_default.json and changing its name (don't add this file to repository!). Fill places with your registrations and access token data.
-
-
 ### Local machine configuration
 #### Linux Ubuntu
 Configuration is similar to the one described in **EC2** section
@@ -328,6 +324,10 @@ C:\Users\USER\.aws\config:
 ```
 pip install -r requirements.txt
 ```
+
+### Credentials
+Prepare credentials.json file in main project directory by duplicate credentials_default.json and changing its name (don't add this file to repository!). Fill places with your registrations and access token data.
+
 
 ## Run
 On EC2 instance run to read airplanes data:
