@@ -51,7 +51,7 @@ https://myprojects.geoapify.com/login
 * In **Category** window go to Connection/SSH/Auth and browse for earlier downloaded .ppk key file
 * in **Category** window go to Session and fill Host Name (or IP address) inputbox (for example "ubuntu@ec2-18-207-187-224.compute-1.amazonaws.com")
 * click **Open**
-* on PuTTY Security Alert popup window choose **yes**
+* on PuTTY Security Alert popup window choose **tak**
 
 
 #### Instance setup - configure vim
@@ -76,13 +76,19 @@ rm awscliv2.zip
 ```
 * create folder for AWS credentials file
 ```
-mkdir .aws
+mkdir ~/.aws
 ```
 * open labs.vocareum page
 * click **Account Details**
 * click **show**
 * copy showed text
 * paste it into ~/.aws/credentials
+* paste following text into ~/.aws/config:
+```
+[default]
+region = us-east-1
+output = json
+```
 
 
 #### Instance setup - configure git
@@ -98,7 +104,7 @@ ssh-keygen -o
 * push **enter** button for each communicate (3 times)
 * show public key
 ```
-cat .ssh/id_rsa.pub
+cat ~/.ssh/id_rsa.pub
 ```
 * log in to **github** service
 * go to **Settings**
