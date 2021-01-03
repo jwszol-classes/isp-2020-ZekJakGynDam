@@ -159,7 +159,7 @@ pip install boto3
 * click right mouse button on instance
 * choose **Image and templates**
 * choose **Create image**
-* provide **Image name** (for example "ec2_ubuntu_instance_airplanes")
+* provide **Image name** (for example "airplanes_image")
 * uncheck **Delete on termination** checkbox
 * click **Create image**
 * go to EC2 service
@@ -277,7 +277,7 @@ where xx is your python version e.g. 38 for python 3.8
 
 #### Configuration
 * go under **Basic settings** section and click **Edit**
-* set **Memory (MB)** as 512
+* set **Memory (MB)** as 1024
 * set **Timeout** as 30 sec
 * click **save**
 
