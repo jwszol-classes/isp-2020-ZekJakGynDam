@@ -11,7 +11,7 @@ import numpy as np
 import boto3
 from boto3.dynamodb.conditions import Key
 from query_dynamo import list_airplanes
-
+import json
 
 credentials_path = "credentials.json"
 credentials = json.load(open(credentials_path, "r"))
