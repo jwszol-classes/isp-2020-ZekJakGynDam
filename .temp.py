@@ -13,6 +13,12 @@ from boto3.dynamodb.conditions import Key
 from query_dynamo import list_airplanes
 
 
+credentials_path = "credentials.json"
+credentials = json.load(open(credentials_path, "r"))
+
+access_token = credentials["mapbox"]["access_token"]
+
+
 fig = go.Figure()
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 api = OpenSkyApi()
@@ -66,7 +72,7 @@ def update_graph_live(n):
 
 
     fig.update_layout(height=1000,showlegend=False)
-    fig.update_mapboxes(accesstoken="pk.eyJ1IjoiZGFhYW1pYW4iLCJhIjoiY2tqOHFnemZmNTB2eTJxc2NwbDR6bzNkciJ9.nPJVeE3p8ooX4vLrk9IMww",
+    fig.update_mapboxes(accesstoken=access_token,
      zoom=5.8,
      center=dict(lat=51.8,lon=21.1),
      uirevision=len(data), #To jest takie troche dziwne, ale coś mu trzeba podać, bo inaczej resetuje widok - len data w tym przypadku zawsze wynosi 3 i sie nie powinno zmieniac

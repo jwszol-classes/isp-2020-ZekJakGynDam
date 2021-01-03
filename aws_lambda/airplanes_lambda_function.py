@@ -50,7 +50,7 @@ def add_record(item, table):
     table.put_item(Item=item)
 
 
-def lambda_handler_airplanes(event, context):
+def airplanes_lambda_handler(event, context):
     # TODO implement
 
     # Set configuration variables
