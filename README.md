@@ -8,13 +8,13 @@ python -m virtualenv venv
 cd venv/Scripts/activate
 ```
 
-### Setup Opensky-API
-Create account on opensky-api:
+### Setup OpenSky-API
+Create account on OpenSky-api:
 https://opensky-network.org/index.php?option=com_users&view=registration
 
 
 ### Setup Mapbox
-Create account on mapbox:
+Create account on Mapbox:
 https://www.mapbox.com/maps/
 
 
@@ -288,18 +288,53 @@ You have just configured AWS Lambda function for checking if airplane is above P
 Prepare credentials.json file in main project directory by duplicate credentials_default.json and changing its name (don't add this file to repository!). Fill places with your registrations and access token data
 
 
+### Local machine configuration
+#### Linux Ubuntu
+Configuration is similar to the one described in **EC2** section
 
+#### Windows
+* download AWS installer from:
+ https://awscli.amazonaws.com/AWSCLIV2.msi
+ and install it
+* create folder for AWS credentials file in following path:
+```
+C:\Users\USER
+```
+where "USER" is user name
+* open labs.vocareum page
+* click **Account Details**
+* click **show**
+* copy showed text
+* paste it into 
+```
+C:\Users\USER\.aws\credentials
+```
+* paste following text 
+```
+[default]
+region = us-east-1
+output = json
+```
+into
+```
+C:\Users\USER\.aws\config:
+```
 
-### AWS
-
-### Communication
-* PuTTy
-* Xming
-
+* run following command in virtual environment
+```
+pip install boto3
+```
 
 ## Run
+On EC2 instance run:
 ```
-python opensky_test.py
-python geoapify_test.py
-python visualisation.py
+python Kinesis_airplanes_test\producer.py
+```
+On local machine run:
+```
+python visualisation_animation_basemap.py
+```
+or
+```
+python visualisation_animation_plotly.py
 ```
