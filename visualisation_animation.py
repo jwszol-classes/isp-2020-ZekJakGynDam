@@ -5,14 +5,11 @@ from matplotlib.offsetbox import OffsetImage, AnnotationBbox
 from mpl_toolkits.basemap import Basemap
 from matplotlib.animation import FuncAnimation
 from PIL import Image
-
+from query_dynamo import list_airplanes
 def visualization():
     airplane_image_path = "src/airplane.png"
     airplane_image = Image.open(airplane_image_path)
-    airplane_image_resized = airplane_image.resize((16,16))
-    airplane_image_resized_arr = np.asarray(airplane_image_resized)
-    offsetImage = OffsetImage(airplane_image_resized_arr)
-
+ 
     # Map initialization
     fig, ax = plt.subplots()
     fig.canvas.toolbar.pack_forget()
@@ -32,14 +29,14 @@ def visualization():
     x_W, _   = map_plot(14.116667, 0)
     _,   y_N = map_plot(0, 55)
     _,   y_S = map_plot(0, 49)
-
+    # print(x_E,x_W,y_N,y_S)
     distance_E_W = x_E - x_W
     distance_N_S = y_N - y_S
     offset_text_city_x = int(5*distance_E_W/400)
     offset_text_city_y = int(5*distance_N_S/400)
 
-    offset_text_airplace_x = int(14*distance_E_W/600)
-    offset_text_airplace_y = int(14*distance_N_S/600)
+    offset_text_airplace_x = int(14*distance_E_W/900)
+    offset_text_airplace_y = int(14*distance_N_S/900)
 
     # map_plot = Basemap(width=1200, height=900, projection='mill',
     #                     llcrnrlat=49,urcrnrlat=55, llcrnrlon=14.116667,urcrnrlon=24.15,resolution='f')
@@ -74,21 +71,33 @@ def visualization():
         return ln_planes,
 
     def update(frame):
-        # dane = metodaPawloDamiana()
+
+        data=list_airplanes()
         x_p_temp_list = []
         y_p_temp_list = []
-
-        # x_p -> dane["szerokosc geograficzna"]
+        # bearing_list = []
+        x_p = data["Longitude"]
+        y_p = data["Latitude"]
         # y_p -> dane["wysokosc geograficzna"]
         for i in range(len(x_p)):
             x_p_temp, y_p_temp = map_plot(x_p[i], y_p[i])
             x_p_temp_list.append(x_p_temp)
             y_p_temp_list.append(y_p_temp)
-
+            # bearing_list.append()
+        # print(x_p_temp_list,y_p_temp_list)
         artists = []
 
-        # plane_name -> dane["ICAO24"]
+        plane_name=data["ICAO"]
+
         for i in range(len(x_p_temp_list)):
+
+            rotated = airplane_image.rotate(data['Heading'][i])
+            airplane_image_resized = rotated.resize((16,16))
+
+            airplane_image_resized_arr = np.asarray(airplane_image_resized)
+
+            offsetImage = OffsetImage(airplane_image_resized_arr)
+
             artists.append(ax.text(x_p_temp_list[i]+offset_text_airplace_x, 
                                    y_p_temp_list[i]+offset_text_airplace_y, plane_name[i], fontsize=10))
             artist = ax.add_artist(AnnotationBbox(offsetImage, (x_p_temp_list[i], y_p_temp_list[i]), frameon=False))
