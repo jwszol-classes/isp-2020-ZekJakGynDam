@@ -27,13 +27,13 @@ def list_airplanes():
         timestamp = datetime.datetime.strptime(i['datetime'], '%Y-%m-%d %H:%M:%S.%f')
         diff=datetime.datetime.now()- timestamp
         # print("SEKUNDY: ", diff.seconds)
-        # if diff.seconds < time_eps:
-        # airplanes.append(i) #i['icao24']
-        data['Latitude'].append(float(i['latitude']))
-        data['Longitude'].append(float(i['longitude']))
-        data['ICAO'].append(str(i['ICAO24']))
-        data['Heading'].append(float(i['heading']))
-        
+        if diff.seconds < time_eps:
+            # airplanes.append(i) #i['icao24']
+            data['Latitude'].append(float(i['latitude']))
+            data['Longitude'].append(float(i['longitude']))
+            data['ICAO'].append(str(i['ICAO24']))
+            data['Heading'].append(float(i['heading']))
+            
     return data
 
 
