@@ -164,7 +164,7 @@ pip install boto3
 * click **Create image**
 * go to EC2 service
 * go to Images/AMIs
-* wait until status of your image change into "available" (don't terminate instance until then!!!)
+* wait until **Status** of your image change into "available" (don't terminate instance until then!!!)
 
 
 ### Setup Basemap
