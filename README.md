@@ -130,7 +130,7 @@ python3 -m pip install virtualenv
 git clone git@github.com:jwszol-classes/isp-2020-ZekJakGynDam.git
 ```
 and write "yes" when communicate shows
-* got to repository directory
+* go to repository directory
 ```
 cd isp-2020-ZekJakGynDam/
 ```
