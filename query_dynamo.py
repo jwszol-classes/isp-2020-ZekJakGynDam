@@ -4,7 +4,7 @@ import time
 import datetime
 
 dynamodb = boto3.resource("dynamodb")
-time_eps=3
+time_eps=3900
 
 # def read_last_row():
     # table = dynamodb.Table("Airplanes")

@@ -9,6 +9,7 @@ from query_dynamo import list_airplanes
 def visualization():
     airplane_image_path = "src/airplane.png"
     airplane_image = Image.open(airplane_image_path)
+    # airplane_image_resized = rotated.resize((16,16))
  
     # Map initialization
     fig, ax = plt.subplots()
@@ -90,8 +91,7 @@ def visualization():
         plane_name=data["ICAO"]
 
         for i in range(len(x_p_temp_list)):
-            degree_correction = 180
-            rotated = airplane_image.rotate(data['Heading'][i] + degree_correction)
+            rotated = airplane_image.rotate(-data['Heading'][i])
             airplane_image_resized = rotated.resize((16,16))
 
             airplane_image_resized_arr = np.asarray(airplane_image_resized)
