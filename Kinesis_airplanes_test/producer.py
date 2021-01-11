@@ -6,6 +6,7 @@ import boto3
 import m_opensky as OPENSKY
 import json
 import struct 
+import hashlib 
 
 credentials_path = "credentials.json"
 credentials = json.load(open(credentials_path, "r"))
@@ -20,6 +21,7 @@ class KinesisProducer(threading.Thread):
         self.stream_name = stream_name
         self.sleep_interval = sleep_interval
         self.counter=0
+        #self.tab=["bbb-jeden","--dwojeczka","cc-trzy","cc-cztery","cc-piec","cc-szesc"]
         super().__init__()
         
     def prep_records(self):
@@ -33,7 +35,9 @@ class KinesisProducer(threading.Thread):
     def put_record(self, airplane):
         """put a single record to the stream"""
         self.counter += 1
-        print(kinesis.put_record(StreamName = self.stream_name, Data = airplane, PartitionKey = str(self.counter%2) ))
+        print(kinesis.put_record(StreamName = self.stream_name, Data = airplane, PartitionKey = str(self.counter%5) ))
+        #md5 = hashlib.md5(self.tab[self.counter%5].encode())
+        #print(kinesis.put_record(StreamName = self.stream_name, Data = airplane, PartitionKey = str(self.tab[self.counter%5]), ExplicitHashKey=str(int(md5.hexdigest(),16))))
 
     def run_continously(self):
         """put a record at regular intervals"""
