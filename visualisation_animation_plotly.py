@@ -53,7 +53,7 @@ def update_graph_live(n):
     #     data['Latitude'].append (state[i].latitude  )
     #     data['ICAO'].append(state[i].icao24)
     data=list_airplanes()
-    fig.update_traces(marker=go.scattermapbox.Marker( size=5, color="rgb(100, 100, 100)", opacity=0.0),mode='markers')#chamskie ale zamalowuje wszystkie stare punkty na szaro
+    fig.update_traces(marker=go.scattermapbox.Marker( size=5, color="rgb(100, 100, 100)", opacity=0.5),mode='markers')#chamskie ale zamalowuje wszystkie stare punkty na szaro
 
     fig.add_trace(go.Scattermapbox(
         #name="Plane",

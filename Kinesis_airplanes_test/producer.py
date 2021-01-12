@@ -25,12 +25,13 @@ class KinesisProducer(threading.Thread):
         super().__init__()
         
     def prep_records(self):
-        data=OPENSKY.get_airplanes(username, password)      
-        for s in data.states:
-            timestamp=datetime.datetime.now()
-            timestamp=timestamp.replace(tzinfo=timezone.utc).timestamp()
-            airplane = str(str(s.icao24) + "|" + str(timestamp) + "|" + str(s.latitude) + "|" + str(s.longitude) + "|" + str(s.heading))
-            self.put_record(airplane)
+        data=OPENSKY.get_airplanes(username, password)   
+        if data is not None:   
+            for s in data.states:
+                timestamp=datetime.datetime.now()
+                timestamp=timestamp.replace(tzinfo=timezone.utc).timestamp()
+                airplane = str(str(s.icao24) + "|" + str(timestamp) + "|" + str(s.latitude) + "|" + str(s.longitude) + "|" + str(s.heading))
+                self.put_record(airplane)
         
     def put_record(self, airplane):
         """put a single record to the stream"""
