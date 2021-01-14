@@ -21,6 +21,7 @@ class KinesisProducer(threading.Thread):
         self.stream_name = stream_name
         self.sleep_interval = sleep_interval
         self.counter=0
+        self.shards_number=5
         #self.tab=["bbb-jeden","--dwojeczka","cc-trzy","cc-cztery","cc-piec","cc-szesc"]
         super().__init__()
         
@@ -30,13 +31,13 @@ class KinesisProducer(threading.Thread):
             for s in data.states:
                 timestamp=datetime.datetime.now()
                 timestamp=timestamp.replace(tzinfo=timezone.utc).timestamp()
-                airplane = str(str(s.icao24) + "|" + str(timestamp) + "|" + str(s.latitude) + "|" + str(s.longitude) + "|" + str(s.heading))
+                airplane = str(str(s.icao24) + "|" + str(timestamp) + "|" + str(s.latitude) + "|" + str(s.longitude) + "|" + str(s.heading) + "|" + str(s.on_ground))
                 self.put_record(airplane)
         
     def put_record(self, airplane):
         """put a single record to the stream"""
         self.counter += 1
-        print(kinesis.put_record(StreamName = self.stream_name, Data = airplane, PartitionKey = str(self.counter%5) ))
+        print(kinesis.put_record(StreamName = self.stream_name, Data = airplane, PartitionKey = str(self.counter%self.shards_number) ))
         #md5 = hashlib.md5(self.tab[self.counter%5].encode())
         #print(kinesis.put_record(StreamName = self.stream_name, Data = airplane, PartitionKey = str(self.tab[self.counter%5]), ExplicitHashKey=str(int(md5.hexdigest(),16))))
 
