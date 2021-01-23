@@ -1,4 +1,5 @@
 import boto3
+import botocore
 
 
 def create_table(dynamodb, table_name, key_schema, attribute_definitions, provisioned_throughput):
@@ -83,4 +84,7 @@ def create_airplanes_tables(dynamodb, region_name):
 if __name__ == "__main__":
     region_name = 'us-east-1'
     dynamodb = boto3.resource('dynamodb', region_name=region_name)
-    create_airplanes_tables(dynamodb, region_name)
+    try:
+        create_airplanes_tables(dynamodb, region_name)
+    except botocore.exceptions.ClientError:
+        print("Credentials are out-of-date")
