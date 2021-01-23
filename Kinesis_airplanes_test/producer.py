@@ -7,6 +7,7 @@ import m_opensky as OPENSKY
 import json
 import struct 
 import hashlib 
+import credentials_refresher
 
 credentials_path = "credentials.json"
 credentials = json.load(open(credentials_path, "r"))
@@ -44,6 +45,9 @@ class KinesisProducer(threading.Thread):
     def run_continously(self):
         """put a record at regular intervals"""
         while True:
+
+            credentials_refresher.get_and_save_actual_aws_credentials(credentials)
+
             self.prep_records()
             time.sleep(self.sleep_interval)
 
