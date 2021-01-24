@@ -4,7 +4,7 @@
 The aim of the project was to design and implement a measurement system that analyzes a certain stream of measurement data. These data relate to the current position of the passenger aircraft. The system should include an application monitoring the current air traffic within Poland. Data should be analyzed in a parallel manner, using queuing mechanisms.
 
 ### Technologies used and data flow
-[diagram]: https://lh3.googleusercontent.com/54iYTIif6K2By-LfEjEwEFbJfIQSO1nMGe-z0iYex8RbjArgOp6n6U7UM2ss3tX-yk4ahksQJz5FerTko_Y2=w1920-h910 "diagram"
+![diagram](https://github.com/jwszol-classes/isp-2020-ZekJakGynDam/blob/master/diagram.png)
 
 ### Conclusions
 The use of cloud technologies allowed for the acceleration of the entire process (data acquisition and processing).
