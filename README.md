@@ -1,5 +1,15 @@
 # Airplanes
 
+## Report 
+The aim of the project was to design and implement a measurement system that analyzes a certain stream of measurement data. These data relate to the current position of the passenger aircraft. The system should include an application monitoring the current air traffic within Poland. Data should be analyzed in a parallel manner, using queuing mechanisms.
+
+### Technologies used and data flow
+[diagram]: https://lh3.googleusercontent.com/54iYTIif6K2By-LfEjEwEFbJfIQSO1nMGe-z0iYex8RbjArgOp6n6U7UM2ss3tX-yk4ahksQJz5FerTko_Y2=w1920-h910 "diagram"
+
+### Conclusions
+The use of cloud technologies allowed for the acceleration of the entire process (data acquisition and processing).
+Data is sent to the stream in real time, so its processing also takes place immediately after receiving the data. In the event of a sudden increase in the amount of data (for example, changing the monitored area to Europe), the entire system can be easily scaled by increasing the number of shards - the message sent to each partition of the stream is simultaneously handled by the Lambda function. This ensures no delays in delivering all results to the database regardless of the amount of information. It is possible to perform all operations on one local machine, but it would be significantly slowed down in proportion to the amount of data processed.
+
 ## Setup
 
 Create virtual environment:
