@@ -1,0 +1,202 @@
+{
+    "Gdansk Lech Walesa Airport": {
+        "coordinates_sexagesimal": {
+            "latitude": "54°22′39″N",
+            "longitude": "18°27′59″E"
+        },
+        "coordinates_decimal": {
+            "latitude": "54.3775",
+            "longitude": "18.46638888888889"
+        }
+    },
+    "Koszalin Zegrze Pomorskie Airport": {
+        "coordinates_sexagesimal": {
+            "latitude": "54°02′32″N",
+            "longitude": "16°15′51″E"
+        },
+        "coordinates_decimal": {
+            "latitude": "54.04222222222222",
+            "longitude": "16.264166666666668"
+        }
+    },
+    "Szczecin Goleniow Airport": {
+        "coordinates_sexagesimal": {
+            "latitude": "53°35′05″N",
+            "longitude": "14°54′08″E"
+        },
+        "coordinates_decimal": {
+            "latitude": "53.584722222222226",
+            "longitude": "14.902222222222223"
+        }
+    },
+    "Bydgoszcz Ignacy Jan Paderewski Airport": {
+        "coordinates_sexagesimal": {
+            "latitude": "53°05′48″N",
+            "longitude": "17°58′39″E"
+        },
+        "coordinates_decimal": {
+            "latitude": "53.09666666666667",
+            "longitude": "17.9775"
+        }
+    },
+    "Olsztyn Mazury Airport": {
+        "coordinates_sexagesimal": {
+            "latitude": "53°28′55″N",
+            "longitude": "20°56′16″E"
+        },
+        "coordinates_decimal": {
+            "latitude": "53.481944444444444",
+            "longitude": "20.93777777777778"
+        }
+    },
+    "Poznan Lawica Airport": {
+        "coordinates_sexagesimal": {
+            "latitude": "52°25′16″N",
+            "longitude": "16°49′35″E"
+        },
+        "coordinates_decimal": {
+            "latitude": "52.42111111111111",
+            "longitude": "16.82638888888889"
+        }
+    },
+    "Warsaw Modlin Airport": {
+        "coordinates_sexagesimal": {
+            "latitude": "52°27′04″N",
+            "longitude": "20°39′03″E"
+        },
+        "coordinates_decimal": {
+            "latitude": "52.45111111111111",
+            "longitude": "20.65083333333333"
+        }
+    },
+    "Warsaw Babice Airport": {
+        "coordinates_sexagesimal": {
+            "latitude": "52°16′09″N",
+            "longitude": "20°54′26″E"
+        },
+        "coordinates_decimal": {
+            "latitude": "52.26916666666666",
+            "longitude": "20.90722222222222"
+        }
+    },
+    "Warsaw Chopin Airport": {
+        "coordinates_sexagesimal": {
+            "latitude": "52°09′57″N",
+            "longitude": "20°58′02″E"
+        },
+        "coordinates_decimal": {
+            "latitude": "52.16583333333333",
+            "longitude": "20.96722222222222"
+        }
+    },
+    "Zielona Gora Babimost Airport": {
+        "coordinates_sexagesimal": {
+            "latitude": "52°08′19″N",
+            "longitude": "15°47′55″E"
+        },
+        "coordinates_decimal": {
+            "latitude": "52.13861111111111",
+            "longitude": "15.79861111111111"
+        }
+    },
+    "Biala Podlaska Airport": {
+        "coordinates_sexagesimal": {
+            "latitude": "52°00′21″N",
+            "longitude": "23°08′37″E"
+        },
+        "coordinates_decimal": {
+            "latitude": "52.005833333333335",
+            "longitude": "23.14361111111111"
+        }
+    },
+    "Lodz Wladyslaw Reymont Airport": {
+        "coordinates_sexagesimal": {
+            "latitude": "51°43′19″N",
+            "longitude": "19°23′53″E"
+        },
+        "coordinates_decimal": {
+            "latitude": "51.721944444444446",
+            "longitude": "19.398055555555555"
+        }
+    },
+    "Radom Airport": {
+        "coordinates_sexagesimal": {
+            "latitude": "51°23′21″N",
+            "longitude": "21°12′49″E"
+        },
+        "coordinates_decimal": {
+            "latitude": "51.38916666666667",
+            "longitude": "21.21361111111111"
+        }
+    },
+    "Lublin Airport": {
+        "coordinates_sexagesimal": {
+            "latitude": "51°14′24″N",
+            "longitude": "22°42′48″E"
+        },
+        "coordinates_decimal": {
+            "latitude": "51.24",
+            "longitude": "22.71333333333333"
+        }
+    },
+    "Wroclaw Copernicus Airport": {
+        "coordinates_sexagesimal": {
+            "latitude": "51°06′10″N",
+            "longitude": "16°53′10″E"
+        },
+        "coordinates_decimal": {
+            "latitude": "51.10277777777778",
+            "longitude": "16.88611111111111"
+        }
+    },
+    "Czestochowa Rudniki Airport": {
+        "coordinates_sexagesimal": {
+            "latitude": "50°53′05″N",
+            "longitude": "19°12′08″E"
+        },
+        "coordinates_decimal": {
+            "latitude": "50.88472222222222",
+            "longitude": "19.202222222222222"
+        }
+    },
+    "Katowice International Airport": {
+        "coordinates_sexagesimal": {
+            "latitude": "50°28′28″N",
+            "longitude": "19°04′48″E"
+        },
+        "coordinates_decimal": {
+            "latitude": "50.474444444444444",
+            "longitude": "19.08"
+        }
+    },
+    "Mielec Airport": {
+        "coordinates_sexagesimal": {
+            "latitude": "50°19′21″N",
+            "longitude": "21°27′44″E"
+        },
+        "coordinates_decimal": {
+            "latitude": "50.322500000000005",
+            "longitude": "21.46222222222222"
+        }
+    },
+    "Krakow John Paul II International Airport": {
+        "coordinates_sexagesimal": {
+            "latitude": "50°04′40″N",
+            "longitude": "19°47′06″E"
+        },
+        "coordinates_decimal": {
+            "latitude": "50.07777777777778",
+            "longitude": "19.785"
+        }
+    },
+    "Rzeszow Jasionka Airport": {
+        "coordinates_sexagesimal": {
+            "latitude": "50°06′36″N",
+            "longitude": "22°01′09″E"
+        },
+        "coordinates_decimal": {
+            "latitude": "50.11",
+            "longitude": "22.019166666666667"
+        }
+    }
+}

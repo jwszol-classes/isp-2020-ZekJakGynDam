@@ -26,7 +26,7 @@ def get_flight_number(reg_number):
     
 def get_flight_data(flight_number):
     if(flight_number is not None):
-        URL = "https://www.flightradar24.com/data/flights/"+flight_number
+        URL = "https://www.flightradar24.com/data/flights/"+(flight_number.replace(" ", ""))
         req = urlopen(ul.Request(url = URL, headers={"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:83.0) Gecko/20100101 Firefox/83.0"}))
         response = req.read()
         soup = BeautifulSoup(response, features="html.parser")
@@ -49,4 +49,4 @@ def get_data_from_icao(icao24):
     return get_flight_data(get_flight_number(get_reg_number(icao24)))
 
 if __name__ == "__main__":
-    get_data_from_icao("424396")
+    print(get_data_from_icao("48AE26"))
