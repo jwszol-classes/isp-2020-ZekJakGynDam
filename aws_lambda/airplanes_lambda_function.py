@@ -42,8 +42,8 @@ def timestamp2datetime(timestamp):
 
 def complete_data(airplane_data, airports_dict):
 
-    if airplane_data_flightradar["From"] in airports_dict.keys() and \
-        airplane_data_flightradar["To"] in airports_dict.keys()
+    if airplane_data["From"] in airports_dict.keys() and \
+        airplane_data["To"] in airports_dict.keys()
 
         departure_time_plan_datetime = timestamp2datetime(airplane_data["Departure_time"])
         arrival_time_plan_datetime   = timestamp2datetime(airplane_data["Arrival_time"])
@@ -79,6 +79,7 @@ def complete_data(airplane_data, airports_dict):
         estimated_delay                     = "<not from to Poland>"
 
     airplane_data["departure_time_plan_datetime"]    = departure_time_plan_datetime
+    airplane_data["departure_time_actual_datetime"]  = departure_time_actual_datetime
     airplane_data["arrival_time_plan_datetime"]      = arrival_time_plan_datetime
     airplane_data["duration_plan"]                   = duration_plan
     airplane_data["distance_between_airports"]       = distance_between_airports
@@ -104,7 +105,7 @@ def create_item_for_airplanes_last(airplane_data):
         "departure_time_plan":   airplane_data["departure_time_plan_datetime"],
         "arrival_time_plan":     airplane_data["arrival_time_plan_datetime"],
         "duration_plan":         airplane_data["duration_plan"],
-        "departure_time_actual": airplane_data["Actual_departure_time_datetime"],
+        "departure_time_actual": airplane_data["departure_time_actual_datetime"],
         "velocity":              airplane_data["velocity"],
 
         # Estimated

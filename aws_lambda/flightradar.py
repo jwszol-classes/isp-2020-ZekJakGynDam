@@ -49,4 +49,4 @@ def get_data_from_icao(icao24):
     return get_flight_data(get_flight_number(get_reg_number(icao24)))
 
 if __name__ == "__main__":
-    print(get_data_from_icao("48AE26"))
+    print(get_data_from_icao("48C122"))

@@ -1,5 +1,5 @@
 {
-    "Gdansk Lech Walesa Airport": {
+    "Gdansk Lech Walesa Airport, Poland": {
         "coordinates_sexagesimal": {
             "latitude": "54°22′39″N",
             "longitude": "18°27′59″E"
@@ -9,7 +9,7 @@
             "longitude": "18.46638888888889"
         }
     },
-    "Koszalin Zegrze Pomorskie Airport": {
+    "Koszalin Zegrze Pomorskie Airport, Poland": {
         "coordinates_sexagesimal": {
             "latitude": "54°02′32″N",
             "longitude": "16°15′51″E"
@@ -19,7 +19,7 @@
             "longitude": "16.264166666666668"
         }
     },
-    "Szczecin Goleniow Airport": {
+    "Szczecin Goleniow Airport, Poland": {
         "coordinates_sexagesimal": {
             "latitude": "53°35′05″N",
             "longitude": "14°54′08″E"
@@ -29,7 +29,7 @@
             "longitude": "14.902222222222223"
         }
     },
-    "Bydgoszcz Ignacy Jan Paderewski Airport": {
+    "Bydgoszcz Ignacy Jan Paderewski Airport, Poland": {
         "coordinates_sexagesimal": {
             "latitude": "53°05′48″N",
             "longitude": "17°58′39″E"
@@ -39,7 +39,7 @@
             "longitude": "17.9775"
         }
     },
-    "Olsztyn Mazury Airport": {
+    "Olsztyn Mazury Airport, Poland": {
         "coordinates_sexagesimal": {
             "latitude": "53°28′55″N",
             "longitude": "20°56′16″E"
@@ -49,7 +49,7 @@
             "longitude": "20.93777777777778"
         }
     },
-    "Poznan Lawica Airport": {
+    "Poznan Lawica Airport, Poland": {
         "coordinates_sexagesimal": {
             "latitude": "52°25′16″N",
             "longitude": "16°49′35″E"
@@ -59,7 +59,7 @@
             "longitude": "16.82638888888889"
         }
     },
-    "Warsaw Modlin Airport": {
+    "Warsaw Modlin Airport, Poland": {
         "coordinates_sexagesimal": {
             "latitude": "52°27′04″N",
             "longitude": "20°39′03″E"
@@ -69,7 +69,7 @@
             "longitude": "20.65083333333333"
         }
     },
-    "Warsaw Babice Airport": {
+    "Warsaw Babice Airport, Poland": {
         "coordinates_sexagesimal": {
             "latitude": "52°16′09″N",
             "longitude": "20°54′26″E"
@@ -79,7 +79,7 @@
             "longitude": "20.90722222222222"
         }
     },
-    "Warsaw Chopin Airport": {
+    "Warsaw Chopin Airport, Poland": {
         "coordinates_sexagesimal": {
             "latitude": "52°09′57″N",
             "longitude": "20°58′02″E"
@@ -89,7 +89,7 @@
             "longitude": "20.96722222222222"
         }
     },
-    "Zielona Gora Babimost Airport": {
+    "Zielona Gora Babimost Airport, Poland": {
         "coordinates_sexagesimal": {
             "latitude": "52°08′19″N",
             "longitude": "15°47′55″E"
@@ -99,7 +99,7 @@
             "longitude": "15.79861111111111"
         }
     },
-    "Biala Podlaska Airport": {
+    "Biala Podlaska Airport, Poland": {
         "coordinates_sexagesimal": {
             "latitude": "52°00′21″N",
             "longitude": "23°08′37″E"
@@ -109,7 +109,7 @@
             "longitude": "23.14361111111111"
         }
     },
-    "Lodz Wladyslaw Reymont Airport": {
+    "Lodz Wladyslaw Reymont Airport, Poland": {
         "coordinates_sexagesimal": {
             "latitude": "51°43′19″N",
             "longitude": "19°23′53″E"
@@ -119,7 +119,7 @@
             "longitude": "19.398055555555555"
         }
     },
-    "Radom Airport": {
+    "Radom Airport, Poland": {
         "coordinates_sexagesimal": {
             "latitude": "51°23′21″N",
             "longitude": "21°12′49″E"
@@ -129,7 +129,7 @@
             "longitude": "21.21361111111111"
         }
     },
-    "Lublin Airport": {
+    "Lublin Airport, Poland": {
         "coordinates_sexagesimal": {
             "latitude": "51°14′24″N",
             "longitude": "22°42′48″E"
@@ -139,7 +139,7 @@
             "longitude": "22.71333333333333"
         }
     },
-    "Wroclaw Copernicus Airport": {
+    "Wroclaw Copernicus Airport, Poland": {
         "coordinates_sexagesimal": {
             "latitude": "51°06′10″N",
             "longitude": "16°53′10″E"
@@ -149,7 +149,7 @@
             "longitude": "16.88611111111111"
         }
     },
-    "Czestochowa Rudniki Airport": {
+    "Czestochowa Rudniki Airport, Poland": {
         "coordinates_sexagesimal": {
             "latitude": "50°53′05″N",
             "longitude": "19°12′08″E"
@@ -159,7 +159,7 @@
             "longitude": "19.202222222222222"
         }
     },
-    "Katowice International Airport": {
+    "Katowice International Airport, Poland": {
         "coordinates_sexagesimal": {
             "latitude": "50°28′28″N",
             "longitude": "19°04′48″E"
@@ -169,7 +169,7 @@
             "longitude": "19.08"
         }
     },
-    "Mielec Airport": {
+    "Mielec Airport, Poland": {
         "coordinates_sexagesimal": {
             "latitude": "50°19′21″N",
             "longitude": "21°27′44″E"
@@ -179,7 +179,7 @@
             "longitude": "21.46222222222222"
         }
     },
-    "Krakow John Paul II International Airport": {
+    "Krakow John Paul II International Airport, Poland": {
         "coordinates_sexagesimal": {
             "latitude": "50°04′40″N",
             "longitude": "19°47′06″E"
@@ -189,7 +189,7 @@
             "longitude": "19.785"
         }
     },
-    "Rzeszow Jasionka Airport": {
+    "Rzeszow Jasionka Airport, Poland": {
         "coordinates_sexagesimal": {
             "latitude": "50°06′36″N",
             "longitude": "22°01′09″E"
