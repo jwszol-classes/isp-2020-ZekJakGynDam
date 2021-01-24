@@ -41,30 +41,42 @@ def timestamp2datetime(timestamp):
 
 
 def complete_data(airplane_data, airports_dict):
-    departure_time_plan_datetime = timestamp2datetime(airplane_data["Departure_time"])
-    arrival_time_plan_datetime   = timestamp2datetime(airplane_data["Arrival_time"])
-    duration_plan = airplane_data["Arrival_time"] - airplane_data["Departure_time"] # s
 
-    departure_time_actual_datetime = timestamp2datetime(airplane_data["Actual_departure_time"])
+    if airplane_data_flightradar["From"] in airports_dict.keys() and \
+        airplane_data_flightradar["To"] in airports_dict.keys()
 
-    start_lat = airports_dict[airplane_data["From"]]["coordinates_decimal"]["latitude"]
-    start_lon = airports_dict[airplane_data["From"]]["coordinates_decimal"]["longitude"]
-    stop_lat  = airports_dict[airplane_data["To"]]["coordinates_decimal"]["latitude"]
-    stop_lon  = airports_dict[airplane_data["To"]]["coordinates_decimal"]["longitude"]
-    distance_between_airports = geographical_distance.haversine_formula(start_lat, start_lon, stop_lat, stop_lon) # m
+        departure_time_plan_datetime = timestamp2datetime(airplane_data["Departure_time"])
+        arrival_time_plan_datetime   = timestamp2datetime(airplane_data["Arrival_time"])
+        duration_plan = airplane_data["Arrival_time"] - airplane_data["Departure_time"] # s
 
-    latitude  = airplane_data["latitude"]
-    longitude = airplane_data["longitude"]
-    distance_between_airplane_and_airports = geographical_distance.haversine_formula(latitude, longitude, stop_lat, stop_lon) # m
+        departure_time_actual_datetime = timestamp2datetime(airplane_data["Actual_departure_time"])
 
-    if airplane_data["velocity"] is not None:
-        estimated_arrival_time          = airplane_data["timestamp"] + distance_between_airplane_and_airports/airplane_data["velocity"]
-        estimated_arrival_time_datetime = timestamp2datetime(estimated_arrival_time)
-        estimated_delay                 = estimated_arrival_time_datetime - airplane_data["Arrival_time"] #s
+        start_lat = airports_dict[airplane_data["From"]]["coordinates_decimal"]["latitude"]
+        start_lon = airports_dict[airplane_data["From"]]["coordinates_decimal"]["longitude"]
+        stop_lat  = airports_dict[airplane_data["To"]]["coordinates_decimal"]["latitude"]
+        stop_lon  = airports_dict[airplane_data["To"]]["coordinates_decimal"]["longitude"]
+        distance_between_airports = geographical_distance.haversine_formula(start_lat, start_lon, stop_lat, stop_lon) # m
+
+        latitude  = airplane_data["latitude"]
+        longitude = airplane_data["longitude"]
+        distance_between_airplane_and_airports = geographical_distance.haversine_formula(latitude, longitude, stop_lat, stop_lon) # m
+
+        if airplane_data["velocity"] is not None:
+            estimated_arrival_time          = airplane_data["timestamp"] + distance_between_airplane_and_airports/airplane_data["velocity"]
+            estimated_arrival_time_datetime = timestamp2datetime(estimated_arrival_time)
+            estimated_delay                 = estimated_arrival_time_datetime - airplane_data["Arrival_time"] #s
+        else:
+            estimated_arrival_time          = "<velocity is None>"
+            estimated_arrival_time_datetime = "<velocity is None>"
+            estimated_delay                 = "<velocity is None>"
     else:
-        estimated_arrival_time          = ""
-        estimated_arrival_time_datetime = ""
-        estimated_delay                 = ""
+        departure_time_plan_datetime        = "<not from to Poland>"
+        arrival_time_plan_datetime          = "<not from to Poland>"
+        duration_plan                       = "<not from to Poland>"
+        distance_between_airports           = "<not from to Poland>"
+        estimated_arrival_time              = "<not from to Poland>"
+        estimated_arrival_time_datetime     = "<not from to Poland>"
+        estimated_delay                     = "<not from to Poland>"
 
     airplane_data["departure_time_plan_datetime"]    = departure_time_plan_datetime
     airplane_data["arrival_time_plan_datetime"]      = arrival_time_plan_datetime
@@ -73,17 +85,6 @@ def complete_data(airplane_data, airports_dict):
     airplane_data["estimated_arrival_time"]          = estimated_arrival_time
     airplane_data["estimated_arrival_time_datetime"] = estimated_arrival_time_datetime
     airplane_data["estimated_delay"]                 = estimated_delay
-
-
-def complete_data_substitute(airplane_data, airports_dict):
-    airplane_data["departure_time_plan_datetime"]    = ""
-    airplane_data["arrival_time_plan_datetime"]      = ""
-    airplane_data["duration_plan"]                   = ""
-    airplane_data["distance_between_airports"]       = ""
-    airplane_data["estimated_arrival_time"]          = ""
-    airplane_data["estimated_arrival_time_datetime"] = ""
-    airplane_data["estimated_delay"]                 = ""
-
 
 
 def create_item_for_airplanes_last(airplane_data):
@@ -140,7 +141,7 @@ def airplanes_lambda_handler(event, context):
     dynamodb                   = boto3.resource("dynamodb")
     airplanes_historical_table = dynamodb.Table("AirplanesHistorical")
     airplanes_last_table       = dynamodb.Table("AirplanesLast")
-    airplanes_flights_table    = dynamodb.Table("AirplanesFlights")
+    # airplanes_flights_table    = dynamodb.Table("AirplanesFlights")
 
     airports_dict = json.load(open(airports_dict_path, "r"))
 
@@ -170,7 +171,7 @@ def airplanes_lambda_handler(event, context):
 
         # Update DynamoDB tables
         add_record(item_for_airplanes_last, airplanes_last_table)
-        add_record(item, airplanes_historical_table)
+        add_record(item_for_airplanes_last, airplanes_historical_table)
     
     return {
         'statusCode': 200,
