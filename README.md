@@ -402,8 +402,7 @@ pip install -r requirements.txt
 ```
 
 ### Credentials
-Prepare credentials.json file in main project directory by duplicate credentials_default.json and changing its name (don't add this file to repository!). Fill places with your registrations and access token data.
-
+Prepare credentials.json file in main project directory by duplicate credentials_default.json and changing its name (don't add this file to repository!). Fill places with your registrations, access tokens data, aws vocareum cookies data etc.
 
 ## Run
 On EC2 instance run to read airplanes data:
