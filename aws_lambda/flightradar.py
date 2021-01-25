@@ -34,8 +34,8 @@ def get_flight_data(flight_number):
         soup = BeautifulSoup(str(rows[0]), features="html.parser")
         cols = soup.findAll('td')[3:12] 
         values={
-                "From":cols[0].text,
-                "To":cols[1].text,
+                "From":cols[0]["title"],
+                "To":cols[1]["title"],
                 #"Flight_time":cols[3].text,
                 "Departure_time":cols[4]['data-timestamp'],
                 "Actual_departure_time":cols[5]['data-timestamp'],

@@ -43,7 +43,10 @@ def timestamp2datetime(timestamp):
 def complete_data(airplane_data, airports_dict):
 
     if airplane_data["From"] in airports_dict.keys() and \
-        airplane_data["To"] in airports_dict.keys()
+        airplane_data["To"] in airports_dict.keys() and \
+        airplane_data["Departure_time"] != "" and \
+        airplane_data["Arrival_time"] != "" and \
+        airplane_data["Actual_departure_time"] != "":
 
         departure_time_plan_datetime = timestamp2datetime(airplane_data["Departure_time"])
         arrival_time_plan_datetime   = timestamp2datetime(airplane_data["Arrival_time"])
@@ -70,13 +73,13 @@ def complete_data(airplane_data, airports_dict):
             estimated_arrival_time_datetime = "<velocity is None>"
             estimated_delay                 = "<velocity is None>"
     else:
-        departure_time_plan_datetime        = "<not from to Poland>"
-        arrival_time_plan_datetime          = "<not from to Poland>"
-        duration_plan                       = "<not from to Poland>"
-        distance_between_airports           = "<not from to Poland>"
-        estimated_arrival_time              = "<not from to Poland>"
-        estimated_arrival_time_datetime     = "<not from to Poland>"
-        estimated_delay                     = "<not from to Poland>"
+        departure_time_plan_datetime        = "<not from to Poland or lack of data>"
+        arrival_time_plan_datetime          = "<not from to Poland or lack of data>"
+        duration_plan                       = "<not from to Poland or lack of data>"
+        distance_between_airports           = "<not from to Poland or lack of data>"
+        estimated_arrival_time              = "<not from to Poland or lack of data>"
+        estimated_arrival_time_datetime     = "<not from to Poland or lack of data>"
+        estimated_delay                     = "<not from to Poland or lack of data>"
 
     airplane_data["departure_time_plan_datetime"]    = departure_time_plan_datetime
     airplane_data["departure_time_actual_datetime"]  = departure_time_actual_datetime
