@@ -34,6 +34,21 @@ def extract_data_opensky(airplane_data_opensky, delimiter="|"):
     return airplane_data_opensky
 
 
+def extract_data_flight_radar(airplane_data_flightradar_raw):
+    if airplane_data_flightradar_raw == None:
+        airplane_data_flightradar = {
+            "From":"",
+            "To":"",
+            "Departure_time":"",
+            "Actual_departure_time":"",
+            "Arrival_time":"",
+            "Estimated_time":""
+            }
+        }
+    else:
+        return airplane_data_flightradar_raw
+
+
 def timestamp2datetime(timestamp):
     datetime_ = datetime.datetime.fromtimestamp(timestamp)
     datetime_formated = datetime_.strftime('%Y-%m-%d %H:%M:%S.%f')
@@ -157,7 +172,8 @@ def airplanes_lambda_handler(event, context):
 
         # Get data from flightradar
         icao24 = airplane_data.split(data_delimiter)
-        airplane_data_flightradar = flight_radar.get_data_from_icao(icao24)
+        airplane_data_flightradar_raw = flight_radar.get_data_from_icao(icao24)
+        airplane_data_flightradar = extract_data_flight_radar(airplane_data_flightradar_raw)
 
         # Create airplance data
         airplane_data = {**airplane_data_opensky, **airplane_data_flightradar} # merge two dicts
