@@ -6,7 +6,7 @@ import datetime
 import boto3
 
 import geographical_distance
-import flight_radar
+import flightradar
 import sexagesimal_to_decimal_converter
 
 
@@ -27,24 +27,24 @@ def extract_data_opensky(airplane_data_opensky, delimiter="|"):
         "datetime":  datetime_formated,
         "latitude":  Decimal(airplane_data_split[2]),
         "longitude": Decimal(airplane_data_split[3]),
-        "heading":   Decimal(airplane_data_split[4])
-        "on_ground": json.loads(airplane_data_split[5].lower())
+        "heading":   Decimal(airplane_data_split[4]),
+        "on_ground": json.loads(airplane_data_split[5].lower()),
         "velocity":  Decimal(airplane_data_split[6])
     }
     return airplane_data_opensky
 
 
 def extract_data_flight_radar(airplane_data_flightradar_raw):
-    if airplane_data_flightradar_raw == None:
+    if airplane_data_flightradar_raw is None:
         airplane_data_flightradar = {
-            "From":"",
-            "To":"",
-            "Departure_time":"",
-            "Actual_departure_time":"",
-            "Arrival_time":"",
-            "Estimated_time":""
+            "From":                     "<not from to Poland or lack of data>",
+            "To":                       "<not from to Poland or lack of data>",
+            "Departure_time":           "<not from to Poland or lack of data>",
+            "Actual_departure_time":    "<not from to Poland or lack of data>",
+            "Arrival_time":             "<not from to Poland or lack of data>",
+            "Estimated_time":           "<not from to Poland or lack of data>"
             }
-        }
+        return airplane_data_flightradar
     else:
         return airplane_data_flightradar_raw
 
@@ -88,22 +88,27 @@ def complete_data(airplane_data, airports_dict):
             estimated_arrival_time_datetime = "<velocity is None>"
             estimated_delay                 = "<velocity is None>"
     else:
-        departure_time_plan_datetime        = "<not from to Poland or lack of data>"
-        arrival_time_plan_datetime          = "<not from to Poland or lack of data>"
-        duration_plan                       = "<not from to Poland or lack of data>"
-        distance_between_airports           = "<not from to Poland or lack of data>"
-        estimated_arrival_time              = "<not from to Poland or lack of data>"
-        estimated_arrival_time_datetime     = "<not from to Poland or lack of data>"
-        estimated_delay                     = "<not from to Poland or lack of data>"
+        departure_time_plan_datetime           = "<not from to Poland or lack of data>"
+        departure_time_actual_datetime         = "<not from to Poland or lack of data>"
+        arrival_time_plan_datetime             = "<not from to Poland or lack of data>"
+        duration_plan                          = "<not from to Poland or lack of data>"
+        distance_between_airports              = "<not from to Poland or lack of data>"
+        distance_between_airplane_and_airports = "<not from to Poland or lack of data>"
+        estimated_arrival_time                 = "<not from to Poland or lack of data>"
+        estimated_arrival_time_datetime        = "<not from to Poland or lack of data>"
+        estimated_delay                        = "<not from to Poland or lack of data>"
 
-    airplane_data["departure_time_plan_datetime"]    = departure_time_plan_datetime
-    airplane_data["departure_time_actual_datetime"]  = departure_time_actual_datetime
-    airplane_data["arrival_time_plan_datetime"]      = arrival_time_plan_datetime
-    airplane_data["duration_plan"]                   = duration_plan
-    airplane_data["distance_between_airports"]       = distance_between_airports
-    airplane_data["estimated_arrival_time"]          = estimated_arrival_time
-    airplane_data["estimated_arrival_time_datetime"] = estimated_arrival_time_datetime
-    airplane_data["estimated_delay"]                 = estimated_delay
+    airplane_data["departure_time_plan_datetime"]           = departure_time_plan_datetime
+    airplane_data["departure_time_actual_datetime"]         = departure_time_actual_datetime
+    airplane_data["arrival_time_plan_datetime"]             = arrival_time_plan_datetime
+    airplane_data["duration_plan"]                          = duration_plan
+    airplane_data["distance_between_airports"]              = distance_between_airports
+    airplane_data["distance_between_airplane_and_airports"] = distance_between_airplane_and_airports
+    airplane_data["estimated_arrival_time"]                 = estimated_arrival_time
+    airplane_data["estimated_arrival_time_datetime"]        = estimated_arrival_time_datetime
+    airplane_data["estimated_delay"]                        = estimated_delay
+    
+    return airplane_data
 
 
 def create_item_for_airplanes_last(airplane_data):
@@ -119,7 +124,7 @@ def create_item_for_airplanes_last(airplane_data):
 
         # From Flightradar
         "from":                  airplane_data["From"],
-        "to"                     airplane_data["To"],
+        "to":                    airplane_data["To"],
         "departure_time_plan":   airplane_data["departure_time_plan_datetime"],
         "arrival_time_plan":     airplane_data["arrival_time_plan_datetime"],
         "duration_plan":         airplane_data["duration_plan"],
@@ -168,14 +173,15 @@ def airplanes_lambda_handler(event, context):
     for record in event["Records"]:
         # Get and decode airplane data
         airplane_data_opensky_raw = get_decoded_data(record)
-        airplane_data_opensky = extract_data_opensky(airplane_data_opensky_raw, delimiter)
+        airplane_data_opensky = extract_data_opensky(airplane_data_opensky_raw, data_delimiter)
 
         # Get data from flightradar
-        icao24 = airplane_data.split(data_delimiter)
-        airplane_data_flightradar_raw = flight_radar.get_data_from_icao(icao24)
+        icao24 = airplane_data_opensky["ICAO24"]
+        airplane_data_flightradar_raw = None #flightradar.get_data_from_icao(icao24)
         airplane_data_flightradar = extract_data_flight_radar(airplane_data_flightradar_raw)
 
         # Create airplance data
+        #print(airplane_data_flightradar_raw, airplane_data_flightradar)
         airplane_data = {**airplane_data_opensky, **airplane_data_flightradar} # merge two dicts
 
         # Check if airplane is above defined country
@@ -187,11 +193,12 @@ def airplanes_lambda_handler(event, context):
         airplane_data = complete_data(airplane_data, airports_dict)
 
         # Create items for tables
-        item_for_airplanes_last = create_item_for_airplanes_last(airplane_data, data_delimiter)
+        item_for_airplanes_last = create_item_for_airplanes_last(airplane_data)
 
         # Update DynamoDB tables
         add_record(item_for_airplanes_last, airplanes_last_table)
         add_record(item_for_airplanes_last, airplanes_historical_table)
+        print("Saved item: ", item_for_airplanes_last)
     
     return {
         'statusCode': 200,
