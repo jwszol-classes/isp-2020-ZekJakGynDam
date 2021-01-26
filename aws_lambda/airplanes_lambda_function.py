@@ -132,7 +132,7 @@ def create_item_for_airplanes_last(airplane_data):
         "velocity":              airplane_data["velocity"],
 
         # Estimated
-        "distance_between_airplane_and_airport": airplane_data["distance_between_airplane_and_airport"]
+        "distance_between_airplane_and_airport": airplane_data["distance_between_airplane_and_airport"],
         "estimated_delay":                       airplane_data["estimated_delay"]
     }
     return item
