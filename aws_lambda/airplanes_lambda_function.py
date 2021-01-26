@@ -88,9 +88,29 @@ def complete_data(airplane_data, airports_dict):
             estimated_arrival_time_datetime = "<velocity is None>"
             estimated_delay                 = "<velocity is None>"
     else:
-        departure_time_plan_datetime           = "<not from to Poland or lack of data>"
-        departure_time_actual_datetime         = "<not from to Poland or lack of data>"
-        arrival_time_plan_datetime             = "<not from to Poland or lack of data>"
+        
+        if airplane_data["Departure_time"] != "" and \
+            airplane_data["Departure_time"] != "," and \
+            airplane_data["Departure_time"] != " ":
+            departure_time_plan_datetime = timestamp2datetime(airplane_data["Departure_time"])
+        else:
+            departure_time_plan_datetime           = "<not from to Poland or lack of data>"
+            
+        if airplane_data["Arrival_time"] != "" and \
+            airplane_data["Arrival_time"] != "," and \
+            airplane_data["Arrival_time"] != " ":
+            arrival_time_plan_datetime = timestamp2datetime(airplane_data["Arrival_time"])
+        else:
+            arrival_time_plan_datetime           = "<not from to Poland or lack of data>"
+            
+        if  airplane_data["departure_time_actual_datetime"] != "" and \
+            airplane_data["departure_time_actual_datetime"] != "," and \
+            airplane_data["departure_time_actual_datetime"] != " ":
+            departure_time_actual_datetime = timestamp2datetime(airplane_data["departure_time_actual_datetime"])
+        else:
+            departure_time_actual_datetime           = "<not from to Poland or lack of data>"
+            
+
         duration_plan                          = "<not from to Poland or lack of data>"
         distance_between_airports              = "<not from to Poland or lack of data>"
         distance_between_airplane_and_airport  = "<not from to Poland or lack of data>"
@@ -133,6 +153,7 @@ def create_item_for_airplanes_last(airplane_data):
 
         # Estimated
         "distance_between_airplane_and_airport": airplane_data["distance_between_airplane_and_airport"],
+        "estimated_arrival_time_datetime":       airplane_data["estimated_arrival_time_datetime"],
         "estimated_delay":                       airplane_data["estimated_delay"]
     }
     return item
