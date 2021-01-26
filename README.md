@@ -64,6 +64,7 @@ Each table contain following columns:
 * arrival_time_plan
 * duration_plan
 * departure_time_actual
+* distance_between_airplane_and_airport
 * velocity
 * estimated_delay
 

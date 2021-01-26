@@ -77,7 +77,7 @@ def complete_data(airplane_data, airports_dict):
 
         latitude  = airplane_data["latitude"]
         longitude = airplane_data["longitude"]
-        distance_between_airplane_and_airports = geographical_distance.haversine_formula(latitude, longitude, stop_lat, stop_lon) # m
+        distance_between_airplane_and_airport = geographical_distance.haversine_formula(latitude, longitude, stop_lat, stop_lon) # m
 
         if airplane_data["velocity"] is not None:
             estimated_arrival_time          = airplane_data["timestamp"] + distance_between_airplane_and_airports/airplane_data["velocity"]
@@ -93,20 +93,20 @@ def complete_data(airplane_data, airports_dict):
         arrival_time_plan_datetime             = "<not from to Poland or lack of data>"
         duration_plan                          = "<not from to Poland or lack of data>"
         distance_between_airports              = "<not from to Poland or lack of data>"
-        distance_between_airplane_and_airports = "<not from to Poland or lack of data>"
+        distance_between_airplane_and_airport  = "<not from to Poland or lack of data>"
         estimated_arrival_time                 = "<not from to Poland or lack of data>"
         estimated_arrival_time_datetime        = "<not from to Poland or lack of data>"
         estimated_delay                        = "<not from to Poland or lack of data>"
 
-    airplane_data["departure_time_plan_datetime"]           = departure_time_plan_datetime
-    airplane_data["departure_time_actual_datetime"]         = departure_time_actual_datetime
-    airplane_data["arrival_time_plan_datetime"]             = arrival_time_plan_datetime
-    airplane_data["duration_plan"]                          = duration_plan
-    airplane_data["distance_between_airports"]              = distance_between_airports
-    airplane_data["distance_between_airplane_and_airports"] = distance_between_airplane_and_airports
-    airplane_data["estimated_arrival_time"]                 = estimated_arrival_time
-    airplane_data["estimated_arrival_time_datetime"]        = estimated_arrival_time_datetime
-    airplane_data["estimated_delay"]                        = estimated_delay
+    airplane_data["departure_time_plan_datetime"]          = departure_time_plan_datetime
+    airplane_data["departure_time_actual_datetime"]        = departure_time_actual_datetime
+    airplane_data["arrival_time_plan_datetime"]            = arrival_time_plan_datetime
+    airplane_data["duration_plan"]                         = duration_plan
+    airplane_data["distance_between_airports"]             = distance_between_airports
+    airplane_data["distance_between_airplane_and_airport"] = distance_between_airplane_and_airport
+    airplane_data["estimated_arrival_time"]                = estimated_arrival_time
+    airplane_data["estimated_arrival_time_datetime"]       = estimated_arrival_time_datetime
+    airplane_data["estimated_delay"]                       = estimated_delay
     
     return airplane_data
 
@@ -132,7 +132,8 @@ def create_item_for_airplanes_last(airplane_data):
         "velocity":              airplane_data["velocity"],
 
         # Estimated
-        "estimated_delay": airplane_data["estimated_delay"]
+        "distance_between_airplane_and_airport": airplane_data["distance_between_airplane_and_airport"]
+        "estimated_delay":                       airplane_data["estimated_delay"]
     }
     return item
 
@@ -177,7 +178,7 @@ def airplanes_lambda_handler(event, context):
 
         # Get data from flightradar
         icao24 = airplane_data_opensky["ICAO24"]
-        airplane_data_flightradar_raw = None #flightradar.get_data_from_icao(icao24)
+        airplane_data_flightradar_raw = flightradar.get_data_from_icao(icao24)
         airplane_data_flightradar = extract_data_flight_radar(airplane_data_flightradar_raw)
 
         # Create airplance data
