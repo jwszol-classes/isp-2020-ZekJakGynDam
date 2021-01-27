@@ -72,6 +72,9 @@ Each table contain following columns:
 ### Local Machine
 Local Machine (that is personal computer) is used to repeatedly reading data from DynamoDB table with last airplanes data and visualize them with use of Mapbox.
 
+### Exemplary view on airplanes above Poland
+![diagram](https://github.com/jwszol-classes/isp-2020-ZekJakGynDam/blob/master/src/final_view.png)
+
 
 ### Conclusions
 The use of cloud technologies allowed for the acceleration of the entire process (data acquisition and processing).
