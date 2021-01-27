@@ -66,12 +66,13 @@ def update_graph_live(n):
     texts = str(data['ICAO'])+'\n'+ \
             str(data['from'])+'\n'+ \
             str(data['to'])+'\n'+ \
-            str(data['departura_time_plan'])+'\n'+ \
+            str(data['departure_time_plan'])+'\n'+ \
             str(data['departure_time_actual'])+'\n'+ \
             str(data['arrival_time_plan'])+'\n'+ \
             str(data['estimated_arrival_time_datetime'])+'\n'+ \
             str(data['delay'])+'\n'
-    
+    print(text)
+
     fig.add_trace(go.Scattermapbox(
         #name="Plane",
         lon=data['Longitude'],
