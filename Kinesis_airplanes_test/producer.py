@@ -61,5 +61,5 @@ class KinesisProducer(threading.Thread):
 
 
 
-Producer = KinesisProducer("airplanes_stream", sleep_interval=10)
+Producer = KinesisProducer("airplanes_stream", sleep_interval=60)
 Producer.run()
