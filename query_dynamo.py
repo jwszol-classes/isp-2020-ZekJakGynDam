@@ -4,7 +4,7 @@ import time
 import datetime
 
 dynamodb = boto3.resource("dynamodb")
-time_eps=3900
+time_eps=39000
 
 # def read_last_row():
     # table = dynamodb.Table("Airplanes")
@@ -22,7 +22,7 @@ def list_airplanes():
         'ICAO': [],
         'from': [],
         'to':[],
-        'departura_time_plan':[],
+        'departure_time_plan':[],
         'departure_time_actual':[],
         'arrival_time_plan':[],
         'estimated_arrival_time_datetime':[],
@@ -41,7 +41,7 @@ def list_airplanes():
             #mogłem się pomylić w nazwach
             data['from'].append(str(i['from']))
             data['to'].append(str(i['to']))
-            data['departure_time_plan'].append(str(i['departura_time_plan']))
+            data['departure_time_plan'].append(str(i['departure_time_plan']))
             data['departure_time_actual'].append(str(i['departure_time_actual']))
             data['arrival_time_plan'].append(str(i['arrival_time_plan']))
             data['estimated_arrival_time_datetime'].append(str(i['estimated_arrival_time_datetime']))
