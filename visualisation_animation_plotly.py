@@ -12,6 +12,7 @@ import boto3
 from boto3.dynamodb.conditions import Key
 from query_dynamo import list_airplanes
 import json
+import pandas as pd
 
 credentials_path = "credentials.json"
 credentials = json.load(open(credentials_path, "r"))
@@ -28,7 +29,7 @@ app.layout = html.Div(
         dcc.Graph(id='live-update-graph'),
         dcc.Interval(
             id='interval-component',
-            interval=15*1000, # in milliseconds
+            interval=5*1000, # in milliseconds
             n_intervals=0
         )
     ])
@@ -38,14 +39,21 @@ allpoints = {'Lat':[],'Lon':[]}
               Input('interval-component', 'n_intervals'))
 def update_graph_live(n):
     ##tutaj nalezy zmienic na ciagniecie danych z AWS-a
-    # print(res)  
-    fig = go.Figure()
+    # fig = go.Figure()
     # state=api.get_states(bbox=(49.0273953314, 54.8515359564, 14.0745211117, 24.0299857927)).states
 
     # data = {
     #     'Latitude': [],
     #     'Longitude': [],
-    #     'ICAO': []
+    #     'Heading':[],
+    #     'ICAO': [],
+    #     'Flight_from': [],
+    #     'Flight_to':[],
+    #     'Departure_time_(planned)':[],
+    #     'Departure_time':[],
+    #     'Arrival_time_(planned)':[],
+    #     'Arrival_time_(estimated)':[],
+    #     'Delay':[]
     # }
 
     # # # Zbieranie danych
@@ -53,8 +61,22 @@ def update_graph_live(n):
     #     data['Longitude'].append(state[i].longitude )
     #     data['Latitude'].append (state[i].latitude  )
     #     data['ICAO'].append(state[i].icao24)
+    #     data['Heading'].append(0)
+    #     data['Flight_from'].append('from')
+    #     data['Flight_to'].append('to')
+    #     data['Departure_time_(planned)'].append('departure plan')
+    #     data['Departure_time'].append('departure_time_actual')
+    #     data['Arrival_time_(planned)'].append('arrival_time_plan')
+    #     data['Arrival_time_(estimated)'].append('estimated_arrival_time_datetime')
+    #     data['Delay'].append('estimated_delay')
+
     data=list_airplanes()
 
+
+    df = pd.DataFrame(data)
+    fig = px.scatter_mapbox(df,lat= "Latitude",lon= "Longitude",
+    hover_data=['ICAO', "Flight_from",'Flight_to','Departure_time_(planned)','Departure_time','Arrival_time_(planned)','Arrival_time_(estimated)','Delay'])
+    fig.update_traces(marker=dict(color="Darkred", size=7))
     fig.add_trace(go.Scattermapbox(
         lon=allpoints['Lon'], 
         lat = allpoints['Lat'],
@@ -63,38 +85,6 @@ def update_graph_live(n):
     allpoints['Lon']+=data['Longitude']
     allpoints['Lat']+=data['Latitude']
     print(len(allpoints['Lat']))
-            # str(data['from'])+'\n'+ \
-            # str(data['to'])+'\n'+ \
-            # str(data['departure_time_plan'])+'\n'+ \
-            # str(data['departure_time_actual'])+'\n'+ \
-            # str(data['arrival_time_plan'])+'\n'+ \
-            # str(data['estimated_arrival_time_datetime'])+'\n'+ \
-            # str(data['delay'])+'\n'
-
-    fig.add_trace(go.Scattermapbox(
-        #name="Plane",
-        lon=data['Longitude'],
-        lat=data['Latitude'],
-        mode='markers+text',
-        marker=go.scattermapbox.Marker(
-            size=10,
-            color='rgb(255, 0, 0)',
-            opacity=0.7
-        ),
-        text=data['ICAO'],
-        labels={
-            'from':"From:",
-            'to':"To",
-            'departure_time_plan':"Departure Time (Planned)",
-            'departure_time_actual':"Departure Time",
-            'arrival_time_plan':"Arrival time (Planned)",
-            'estimated_arrival_time_datetime':"Estimated time of arrival",
-            'delay':"Delay"
-        },
-        label_bgcolor='rgb(200,200,200)',
-        hoverinfo='text',
-    ))
-    # print(fig.data)
     fig.update_layout(height=1000,showlegend=False)
     fig.update_mapboxes(accesstoken=access_token,
      zoom=5.8,
