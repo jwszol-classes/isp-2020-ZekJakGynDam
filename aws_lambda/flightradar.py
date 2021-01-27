@@ -5,7 +5,10 @@ from bs4 import BeautifulSoup
 
 def get_reg_number(icao24):
     URL = "http://api.flightradar24.com/common/v1/search.json?fetchBy=reg&query="+icao24
-    req = urlopen(ul.Request(url = URL, headers={"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:83.0) Gecko/20100101 Firefox/83.0"}))
+    try:
+        req = urlopen(ul.Request(url = URL, headers={"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:83.0) Gecko/20100101 Firefox/83.0"}))
+    except HTTPError:
+        return None
     if req.getcode() == 200:
         response = req.read()
         response_j = json.loads(response.decode("utf-8"))
@@ -16,7 +19,10 @@ def get_reg_number(icao24):
 def get_flight_number(reg_number):
     if reg_number is not None:
         URL = "https://www.flightradar24.com/data/aircraft/"+reg_number
-        req = urlopen(ul.Request(url = URL, headers={"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:83.0) Gecko/20100101 Firefox/83.0"}))
+        try:
+            req = urlopen(ul.Request(url = URL, headers={"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:83.0) Gecko/20100101 Firefox/83.0"}))
+        except HTTPError:
+            return None
         if req.getcode() == 200:
             response = req.read()
             soup = BeautifulSoup(response, features="html.parser")
@@ -31,7 +37,10 @@ def get_flight_number(reg_number):
 def get_flight_data(flight_number):
     if(flight_number is not None):
         URL = "https://www.flightradar24.com/data/flights/"+flight_number
-        req = urlopen(ul.Request(url = URL, headers={"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:83.0) Gecko/20100101 Firefox/83.0"}))
+        try:
+            req = urlopen(ul.Request(url = URL, headers={"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:83.0) Gecko/20100101 Firefox/83.0"}))
+        except HTTPError:
+            return None
         if req.getcode() == 200:
             response = req.read()
             soup = BeautifulSoup(response, features="html.parser")
@@ -56,4 +65,4 @@ def get_data_from_icao(icao24):
     return get_flight_data(get_flight_number(get_reg_number(icao24)))
 
 if __name__ == "__main__":
-    get_data_from_icao("489327")
+    get_data_from_icao("48AD08")
