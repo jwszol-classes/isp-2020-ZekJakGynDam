@@ -20,7 +20,13 @@ def list_airplanes():
         'Longitude': [],
         'Heading':[],
         'ICAO': [],
-        # 'timestamp':[]
+        'from': [],
+        'to':[],
+        'departura_time_plan':[],
+        'departure_time_actual':[],
+        'arrival_time_plan':[],
+        'estimated_arrival_time_datetime':[],
+        'delay':[]
     }
     for i in response['Items']:
         # print("I: ",i)
@@ -28,11 +34,18 @@ def list_airplanes():
         diff=datetime.datetime.now()- timestamp
         # print("SEKUNDY: ", diff.seconds)
         if diff.seconds < time_eps:
-            # airplanes.append(i) #i['icao24']
             data['Latitude'].append(float(i['latitude']))
             data['Longitude'].append(float(i['longitude']))
             data['ICAO'].append(str(i['ICAO24']))
             data['Heading'].append(float(i['heading']))
+            #mogłem się pomylić w nazwach
+            data['from'].append(str(i['from']))
+            data['to'].append(str(i['to']))
+            data['departure_time_plan'].append(str(i['departura_time_plan']))
+            data['departure_time_actual'].append(str(i['departure_time_actual']))
+            data['arrival_time_plan'].append(str(i['arrival_time_plan']))
+            data['estimated_arrival_time_datetime'].append(str(i['estimated_arrival_time_datetime']))
+            data['delay'].append(str(i['estimated_delay']))
             
     return data
 
