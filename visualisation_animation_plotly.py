@@ -59,11 +59,11 @@ def update_graph_live(n):
         lon=allpoints['Lon'], 
         lat = allpoints['Lat'],
         mode='markers',
-        marker=go.scattermapbox.Marker( size=5, color="rgb(100, 100, 100)", opacity=0.5)))#chamskie ale zamalowuje wszystkie stare punkty na szaro
+        marker=go.scattermapbox.Marker( size=5, color="rgb(100, 100, 100)", opacity=0.5)))
     allpoints['Lon']+=data['Longitude']
     allpoints['Lat']+=data['Latitude']
     print(len(allpoints['Lat']))
-    text = str(data['ICAO'])+'\n'+ \
+    texts = str(data['ICAO'])+'\n'+ \
             str(data['from'])+'\n'+ \
             str(data['to'])+'\n'+ \
             str(data['departura_time_plan'])+'\n'+ \
@@ -82,7 +82,7 @@ def update_graph_live(n):
             color='rgb(255, 0, 0)',
             opacity=0.7
         ),
-        text=data['ICAO'],
+        text=texts,
         # label_bgcolor='rgb(200,200,200)',
         hoverinfo='text',
     ))
