@@ -349,7 +349,7 @@ where xx is your python version e.g. 38 for python 3.8
 
 #### Adding resources
 * go to isp-2020-ZekJakGynDam\aws_lambda directory
-* zip airplanes_lambda_function.py and reverse_geocode directory into .zip archive (for example "aws_lambda.zip")
+* zip all files in this directory into .zip archive (for example "aws_lambda.zip")
 * in lambda function page click on **airplanes_lambda_function**
 * Under **Function code** section click **Actions**
 * choose **Upload a .zip file**
