@@ -27,7 +27,13 @@ class KinesisProducer(threading.Thread):
         super().__init__()
         
     def prep_records(self):
-        data=OPENSKY.get_airplanes(username, password)   
+        while True:
+            try:
+                data=OPENSKY.get_airplanes(username, password)   
+            except requests.exceptions.ReadTimeout:
+                continue
+            break
+                
         if data is not None:   
             for s in data.states:
                 timestamp=datetime.datetime.now()

@@ -18,7 +18,7 @@ AWS EC2 instance is used for running continuous program that send request to Ope
 * information if airplane is on ground
 * velocity
 
-about all airplanes that are currently above geographic bounding box (49.0273953314, 54.8515359564, 14.0745211117, 24.0299857927) that is based on the extreme geographical points of Poland. These data (together with timestamp of performed request) are then send to Kinesis data stream.
+about all airplanes that are currently above geographic bounding box (49.0273953314, 54.8515359564, 14.0745211117, 24.0299857927) (min_latitude, max_latitude, min_longitude, max_latitude) that is based on the extreme geographical points of Poland. These data (together with timestamp of performed request) are then send to Kinesis data stream.
 
 ### Kinesis data stream
 Kinesis data stream gets data about airplanes and distribute them to different shards, that provide them into AWS Lambda.

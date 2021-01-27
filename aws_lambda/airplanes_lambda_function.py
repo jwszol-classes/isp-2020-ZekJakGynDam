@@ -89,26 +89,23 @@ def complete_data(airplane_data, airports_dict):
             estimated_delay                 = "<velocity is None>"
     else:
         
-        if airplane_data["Departure_time"] != "" and \
-            airplane_data["Departure_time"] != "," and \
-            airplane_data["Departure_time"] != " ":
+        if  type(airplane_data["Departure_time"]) == type(10) or \
+            type(airplane_data["Departure_time"]) == type(0.1):
             departure_time_plan_datetime = timestamp2datetime(airplane_data["Departure_time"])
         else:
-            departure_time_plan_datetime           = "<not from to Poland or lack of data>"
+            departure_time_plan_datetime = "<not from to Poland or lack of data>"
             
-        if airplane_data["Arrival_time"] != "" and \
-            airplane_data["Arrival_time"] != "," and \
-            airplane_data["Arrival_time"] != " ":
+        if  type(airplane_data["Arrival_time"]) == type(10) or \
+            type(airplane_data["Arrival_time"]) == type(0.1):
             arrival_time_plan_datetime = timestamp2datetime(airplane_data["Arrival_time"])
         else:
-            arrival_time_plan_datetime           = "<not from to Poland or lack of data>"
+            arrival_time_plan_datetime = "<not from to Poland or lack of data>"
             
-        if  airplane_data["departure_time_actual_datetime"] != "" and \
-            airplane_data["departure_time_actual_datetime"] != "," and \
-            airplane_data["departure_time_actual_datetime"] != " ":
-            departure_time_actual_datetime = timestamp2datetime(airplane_data["departure_time_actual_datetime"])
+        if  type(airplane_data["Actual_departure_time"]) == type(10) or \
+            type(airplane_data["Actual_departure_time"]) == type(0.1):
+            departure_time_actual_datetime = timestamp2datetime(airplane_data["Actual_departure_time"])
         else:
-            departure_time_actual_datetime           = "<not from to Poland or lack of data>"
+            departure_time_actual_datetime = "<not from to Poland or lack of data>"
             
 
         duration_plan                          = "<not from to Poland or lack of data>"
