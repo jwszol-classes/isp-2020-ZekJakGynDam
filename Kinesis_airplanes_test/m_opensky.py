@@ -5,7 +5,7 @@ def get_airplanes(username, password):
 
     api = OpenSkyApi(username, password)
 
-    while True
+    while True:
         try:
             states =  api.get_states(bbox=poland_bbox)
         except requests.exceptions.ReadTimeout:
