@@ -3,6 +3,7 @@ import json
 import base64
 import reverse_geocode
 import datetime
+from datetime import timezone
 import boto3
 
 import geographical_distance
@@ -18,7 +19,7 @@ def get_decoded_data(record):
 def extract_data_opensky(airplane_data_opensky, delimiter="|"):
     airplane_data_split = airplane_data_opensky.split(delimiter)
 
-    datetime_formated = timestamp2datetime(float(airplane_data_split[1]))
+    datetime_formated = timestamp2datetime(float(airplane_data_split[1]), False)
 
     # We can add more data here
     airplane_data_opensky = {
@@ -49,9 +50,11 @@ def extract_data_flight_radar(airplane_data_flightradar_raw):
         return airplane_data_flightradar_raw
 
 
-def timestamp2datetime(timestamp):
+def timestamp2datetime(timestamp, debug=True):
     datetime_ = datetime.datetime.fromtimestamp(timestamp)
-    datetime_formated = datetime_.strftime('%Y-%m-%d %H:%M:%S.%f')
+    datetime_formated = datetime_.replace(tzinfo=timezone.utc).strftime('%Y-%m-%d %H:%M:%S.%f')
+    # if debug:
+    #     print(timestamp, datetime_, datetime_formated)
     return datetime_formated
 
 

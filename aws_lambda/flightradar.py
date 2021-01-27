@@ -9,6 +9,7 @@ def get_reg_number(icao24):
     try:
         req = urlopen(ul.Request(url = URL, headers={"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:83.0) Gecko/20100101 Firefox/83.0"}))
     except urllib.error.HTTPError:
+        print("ERROR: 429")
         return None
     if req.getcode() == 200:
         response = req.read()
@@ -25,6 +26,7 @@ def get_flight_number(reg_number):
         try:
             req = urlopen(ul.Request(url = URL, headers={"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:83.0) Gecko/20100101 Firefox/83.0"}))
         except urllib.error.HTTPError:
+            print("ERROR: 429")
             return None
         if req.getcode() == 200:
             response = req.read()
@@ -43,6 +45,7 @@ def get_flight_data(flight_number):
         try:
             req = urlopen(ul.Request(url = URL, headers={"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:83.0) Gecko/20100101 Firefox/83.0"}))
         except urllib.error.HTTPError:
+            print("ERROR: 429")
             return None
         if req.getcode() == 200:
             response = req.read()
