@@ -56,57 +56,92 @@ def timestamp2datetime(timestamp):
 
 
 def complete_data(airplane_data, airports_dict):
-
+    
+    departure_time_plan_floatable   = True
+    arrival_time_plan_floatable     = True
+    departure_time_actual_floatable = True
+    
+    try:
+        a = float(airplane_data["Departure_time"])
+    except (TypeError, ValueError):
+        departure_time_plan_floatable = False
+        
+    try:
+        a = float(airplane_data["Arrival_time"])
+    except (TypeError, ValueError):
+        arrival_time_plan_floatable = False
+        
+    try:
+        a = float(airplane_data["Actual_departure_time"])
+    except (TypeError, ValueError):
+        departure_time_actual_floatable = False
+    
     if airplane_data["From"] in airports_dict.keys() and \
-        airplane_data["To"] in airports_dict.keys() and \
-        airplane_data["Departure_time"] != "" and \
-        airplane_data["Arrival_time"] != "" and \
-        airplane_data["Actual_departure_time"] != "":
+        airplane_data["To"] in airports_dict.keys():
 
-        departure_time_plan_datetime = timestamp2datetime(airplane_data["Departure_time"])
-        arrival_time_plan_datetime   = timestamp2datetime(airplane_data["Arrival_time"])
-        duration_plan = airplane_data["Arrival_time"] - airplane_data["Departure_time"] # s
+        if departure_time_plan_floatable:
+            departure_time_plan_datetime = timestamp2datetime(float(airplane_data["Departure_time"]))
+        else:
+            departure_time_plan_datetime = "<lack of data>"
+        
+        if arrival_time_plan_floatable:
+            arrival_time_plan_datetime   = timestamp2datetime(float(airplane_data["Arrival_time"]))
+        else:
+            arrival_time_plan_datetime = "<lack of data>"
+            
+        if departure_time_actual_floatable:
+            departure_time_actual_datetime = timestamp2datetime(float(airplane_data["Actual_departure_time"]))
+        else:
+            departure_time_actual_datetime = "<lack of data>"
+        
+        if departure_time_plan_floatable and arrival_time_plan_floatable:
+            duration_plan = float(airplane_data["Arrival_time"]) - float(airplane_data["Departure_time"]) # s
+        else:
+            departure_time_actual_datetime = "<lack of data>"
 
-        departure_time_actual_datetime = timestamp2datetime(airplane_data["Actual_departure_time"])
 
-        start_lat = airports_dict[airplane_data["From"]]["coordinates_decimal"]["latitude"]
-        start_lon = airports_dict[airplane_data["From"]]["coordinates_decimal"]["longitude"]
-        stop_lat  = airports_dict[airplane_data["To"]]["coordinates_decimal"]["latitude"]
-        stop_lon  = airports_dict[airplane_data["To"]]["coordinates_decimal"]["longitude"]
+        start_lat = float(airports_dict[airplane_data["From"]]["coordinates_decimal"]["latitude"])
+        start_lon = float(airports_dict[airplane_data["From"]]["coordinates_decimal"]["longitude"])
+        stop_lat  = float(airports_dict[airplane_data["To"]]["coordinates_decimal"]["latitude"])
+        stop_lon  = float(airports_dict[airplane_data["To"]]["coordinates_decimal"]["longitude"])
         distance_between_airports = geographical_distance.haversine_formula(start_lat, start_lon, stop_lat, stop_lon) # m
 
-        latitude  = airplane_data["latitude"]
-        longitude = airplane_data["longitude"]
+        latitude  = float(airplane_data["latitude"])
+        longitude = float(airplane_data["longitude"])
         distance_between_airplane_and_airport = geographical_distance.haversine_formula(latitude, longitude, stop_lat, stop_lon) # m
 
         if airplane_data["velocity"] is not None:
             estimated_arrival_time          = airplane_data["timestamp"] + distance_between_airplane_and_airports/airplane_data["velocity"]
             estimated_arrival_time_datetime = timestamp2datetime(estimated_arrival_time)
-            estimated_delay                 = estimated_arrival_time_datetime - airplane_data["Arrival_time"] #s
+            if arrival_time_plan_floatable:
+                estimated_delay = estimated_arrival_time_datetime - float(airplane_data["Arrival_time"]) #s
+            else:
+                estimated_delay = "<arrival time is unknown>"
         else:
             estimated_arrival_time          = "<velocity is None>"
             estimated_arrival_time_datetime = "<velocity is None>"
             estimated_delay                 = "<velocity is None>"
     else:
-        
-        if  type(airplane_data["Departure_time"]) == type(10) or \
-            type(airplane_data["Departure_time"]) == type(0.1):
-            departure_time_plan_datetime = timestamp2datetime(airplane_data["Departure_time"])
+
+        if departure_time_plan_floatable:
+            departure_time_plan_datetime = timestamp2datetime(float(airplane_data["Departure_time"]))
         else:
             departure_time_plan_datetime = "<not from to Poland or lack of data>"
-            
-        if  type(airplane_data["Arrival_time"]) == type(10) or \
-            type(airplane_data["Arrival_time"]) == type(0.1):
-            arrival_time_plan_datetime = timestamp2datetime(airplane_data["Arrival_time"])
+        
+        if arrival_time_plan_floatable:
+            arrival_time_plan_datetime   = timestamp2datetime(float(airplane_data["Arrival_time"]))
         else:
             arrival_time_plan_datetime = "<not from to Poland or lack of data>"
             
-        if  type(airplane_data["Actual_departure_time"]) == type(10) or \
-            type(airplane_data["Actual_departure_time"]) == type(0.1):
-            departure_time_actual_datetime = timestamp2datetime(airplane_data["Actual_departure_time"])
+        if departure_time_actual_floatable:
+            departure_time_actual_datetime = timestamp2datetime(float(airplane_data["Actual_departure_time"]))
         else:
             departure_time_actual_datetime = "<not from to Poland or lack of data>"
-            
+        
+        if departure_time_plan_floatable and arrival_time_plan_floatable:
+            duration_plan = float(airplane_data["Arrival_time"]) - float(airplane_data["Departure_time"]) # s
+        else:
+            departure_time_actual_datetime = "<not from to Poland or lack of data>"
 
         duration_plan                          = "<not from to Poland or lack of data>"
         distance_between_airports              = "<not from to Poland or lack of data>"
@@ -197,6 +232,7 @@ def airplanes_lambda_handler(event, context):
         # Get data from flightradar
         icao24 = airplane_data_opensky["ICAO24"]
         airplane_data_flightradar_raw = flightradar.get_data_from_icao(icao24)
+        #airplane_data_flightradar_raw = None# 
         airplane_data_flightradar = extract_data_flight_radar(airplane_data_flightradar_raw)
 
         # Create airplance data
