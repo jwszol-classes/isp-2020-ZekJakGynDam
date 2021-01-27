@@ -63,15 +63,13 @@ def update_graph_live(n):
     allpoints['Lon']+=data['Longitude']
     allpoints['Lat']+=data['Latitude']
     print(len(allpoints['Lat']))
-    texts = str(data['ICAO'])+'\n'+ \
-            str(data['from'])+'\n'+ \
-            str(data['to'])+'\n'+ \
-            str(data['departure_time_plan'])+'\n'+ \
-            str(data['departure_time_actual'])+'\n'+ \
-            str(data['arrival_time_plan'])+'\n'+ \
-            str(data['estimated_arrival_time_datetime'])+'\n'+ \
-            str(data['delay'])+'\n'
-    print(text)
+            # str(data['from'])+'\n'+ \
+            # str(data['to'])+'\n'+ \
+            # str(data['departure_time_plan'])+'\n'+ \
+            # str(data['departure_time_actual'])+'\n'+ \
+            # str(data['arrival_time_plan'])+'\n'+ \
+            # str(data['estimated_arrival_time_datetime'])+'\n'+ \
+            # str(data['delay'])+'\n'
 
     fig.add_trace(go.Scattermapbox(
         #name="Plane",
@@ -83,8 +81,17 @@ def update_graph_live(n):
             color='rgb(255, 0, 0)',
             opacity=0.7
         ),
-        text=texts,
-        # label_bgcolor='rgb(200,200,200)',
+        text=data['ICAO'],
+        labels={
+            'from':"From:",
+            'to':"To",
+            'departure_time_plan':"Departure Time (Planned)",
+            'departure_time_actual':"Departure Time",
+            'arrival_time_plan':"Arrival time (Planned)",
+            'estimated_arrival_time_datetime':"Estimated time of arrival",
+            'delay':"Delay"
+        },
+        label_bgcolor='rgb(200,200,200)',
         hoverinfo='text',
     ))
     # print(fig.data)
