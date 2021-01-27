@@ -62,7 +62,7 @@ def update_graph_live(n):
         marker=go.scattermapbox.Marker( size=5, color="rgb(100, 100, 100)", opacity=0.5)))
     allpoints['Lon']+=data['Longitude']
     allpoints['Lat']+=data['Latitude']
-    print(len(allpoints['Lat']))
+    # print(len(allpoints['Lat']))
     texts = str(data['ICAO'])+'\n'+ \
             str(data['from'])+'\n'+ \
             str(data['to'])+'\n'+ \
@@ -71,7 +71,7 @@ def update_graph_live(n):
             str(data['arrival_time_plan'])+'\n'+ \
             str(data['estimated_arrival_time_datetime'])+'\n'+ \
             str(data['delay'])+'\n'
-    print(text)
+    # print(text)
 
     fig.add_trace(go.Scattermapbox(
         #name="Plane",
