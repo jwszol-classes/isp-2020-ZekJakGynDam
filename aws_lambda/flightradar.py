@@ -12,8 +12,9 @@ def get_reg_number(icao24):
     if req.getcode() == 200:
         response = req.read()
         response_j = json.loads(response.decode("utf-8"))
-        if 'registration' in response_j['result']['response']['aircraft']['data'][0]:
-            return response_j['result']['response']['aircraft']['data'][0]['registration']
+        if response_j is not None:
+            if 'registration' in response_j['result']['response']['aircraft']['data'][0]:
+                return response_j['result']['response']['aircraft']['data'][0]['registration']
     return None
     
 def get_flight_number(reg_number):
@@ -36,7 +37,7 @@ def get_flight_number(reg_number):
     
 def get_flight_data(flight_number):
     if(flight_number is not None):
-        URL = "https://www.flightradar24.com/data/flights/"+(flight_number.replace(" ", "").replace("(", "").replace(")", ""))
+        URL = "https://www.flightradar24.com/data/flights/"+flight_number
         try:
             req = urlopen(ul.Request(url = URL, headers={"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:83.0) Gecko/20100101 Firefox/83.0"}))
         except HTTPError:
