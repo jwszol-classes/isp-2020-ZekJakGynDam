@@ -77,11 +77,11 @@ def update_graph_live(n):
     fig = px.scatter_mapbox(df,lat= "Latitude",lon= "Longitude",
     hover_data=['ICAO', "Flight_from",'Flight_to','Departure_time_(planned)','Departure_time','Arrival_time_(planned)','Arrival_time_(estimated)','Delay'])
     fig.update_traces(marker=dict(color="Darkred", size=7))
-    fig.add_trace(go.Scattermapbox(
-        lon=allpoints['Lon'], 
-        lat = allpoints['Lat'],
-        mode='markers',
-        marker=go.scattermapbox.Marker( size=5, color="rgb(100, 100, 100)", opacity=0.5)))
+    # fig.add_trace(go.Scattermapbox(
+    #     lon=allpoints['Lon'], 
+    #     lat = allpoints['Lat'],
+    #     mode='markers',
+    #     marker=go.scattermapbox.Marker( size=5, color="rgb(100, 100, 100)", opacity=0.5)))
     allpoints['Lon']+=data['Longitude']
     allpoints['Lat']+=data['Latitude']
     print(len(allpoints['Lat']))
