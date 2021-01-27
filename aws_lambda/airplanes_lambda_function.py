@@ -111,10 +111,12 @@ def complete_data(airplane_data, airports_dict):
         distance_between_airplane_and_airport = geographical_distance.haversine_formula(latitude, longitude, stop_lat, stop_lon) # m
 
         if airplane_data["velocity"] is not None:
-            estimated_arrival_time          = airplane_data["timestamp"] + distance_between_airplane_and_airports/airplane_data["velocity"]
+            estimated_arrival_time          = float(airplane_data["timestamp"]) + distance_between_airplane_and_airport/float(airplane_data["velocity"])
             estimated_arrival_time_datetime = timestamp2datetime(estimated_arrival_time)
+            distance_between_airplane_and_airport = Decimal(str(distance_between_airplane_and_airport))
             if arrival_time_plan_floatable:
-                estimated_delay = estimated_arrival_time_datetime - float(airplane_data["Arrival_time"]) #s
+                estimated_delay = estimated_arrival_time - float(airplane_data["Arrival_time"]) #s
+                estimated_delay = Decimal(str(estimated_delay))
             else:
                 estimated_delay = "<arrival time is unknown>"
         else:
@@ -140,8 +142,9 @@ def complete_data(airplane_data, airports_dict):
         
         if departure_time_plan_floatable and arrival_time_plan_floatable:
             duration_plan = float(airplane_data["Arrival_time"]) - float(airplane_data["Departure_time"]) # s
+            duration_plan = Decimal(str(duration_plan))
         else:
-            departure_time_actual_datetime = "<not from to Poland or lack of data>"
+            duration_plan = "<not from to Poland or lack of data>"
 
         duration_plan                          = "<not from to Poland or lack of data>"
         distance_between_airports              = "<not from to Poland or lack of data>"
@@ -161,6 +164,14 @@ def complete_data(airplane_data, airports_dict):
     airplane_data["estimated_delay"]                       = estimated_delay
     
     return airplane_data
+
+
+
+def item_corrector(item):
+    for key in item.keys():
+        if type(item[key]) == type(0.2):
+            item[key] = Decimal(str(item[key]))
+    return item
 
 
 def create_item_for_airplanes_last(airplane_data):
@@ -188,6 +199,9 @@ def create_item_for_airplanes_last(airplane_data):
         "estimated_arrival_time_datetime":       airplane_data["estimated_arrival_time_datetime"],
         "estimated_delay":                       airplane_data["estimated_delay"]
     }
+    
+    item = item_corrector(item)
+    
     return item
 
 
@@ -228,11 +242,17 @@ def airplanes_lambda_handler(event, context):
         # Get and decode airplane data
         airplane_data_opensky_raw = get_decoded_data(record)
         airplane_data_opensky = extract_data_opensky(airplane_data_opensky_raw, data_delimiter)
-
+        #print("Get airplane", airplane_data_opensky)
         # Get data from flightradar
         icao24 = airplane_data_opensky["ICAO24"]
         airplane_data_flightradar_raw = flightradar.get_data_from_icao(icao24)
         #airplane_data_flightradar_raw = None# 
+        
+        # if airplane_data_flightradar_raw == None:
+        #     print(icao24, None)
+        # else:
+        #     print(icao24, "not", None)
+        
         airplane_data_flightradar = extract_data_flight_radar(airplane_data_flightradar_raw)
 
         # Create airplance data
