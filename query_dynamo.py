@@ -30,8 +30,7 @@ def list_airplanes():
     }
     for i in response['Items']:
         # print("I: ",i)
-        timestamp = datetime.datetime.strptime(i['datetime'], '%Y-%m-%d %H:%M:%S.%f')
-        diff=datetime.datetime.now()- timestamp
+        diff=datetime.datetime.now() - float(i['timestamp'])
         # print("SEKUNDY: ", diff.seconds)
         if diff.seconds < time_eps:
             data['Latitude'].append(float(i['latitude']))
