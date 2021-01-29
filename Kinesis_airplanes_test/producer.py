@@ -48,8 +48,11 @@ class KinesisProducer(threading.Thread):
     def run_continously(self):
         """put a record at regular intervals"""
         while True:
-
+            global kinesis
             credentials_refresher.get_and_save_actual_aws_credentials(credentials)
+            import boto3
+            kinesis=boto3.client('kinesis')
+
 
             self.prep_records()
             time.sleep(self.sleep_interval)

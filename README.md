@@ -80,6 +80,9 @@ Local Machine (that is personal computer) is used to repeatedly reading data fro
 The use of cloud technologies allowed for the acceleration of the entire process (data acquisition and processing).
 Data is sent to the stream in real time, so its processing also takes place immediately after receiving the data. In the event of a sudden increase in the amount of data (for example, changing the monitored area to Europe), the entire system can be easily scaled by increasing the number of shards - the message sent to each partition of the stream is simultaneously handled by the Lambda function. This ensures no delays in delivering all results to the database regardless of the amount of information. It is possible to perform all operations on one local machine, but it would be significantly slowed down in proportion to the amount of data processed.
 
+### Comments
+The Flightradar may temporary block request from user, if a lot of them is sended in short time period. Even if not blocked, Flightradar may send lacking data to user what results in incoplete data in DynamoDB.
+
 ## Setup
 
 Create virtual environment:
