@@ -227,9 +227,10 @@ python setup.py install
 cd ../..
 rm -r -f opensky-api/
 ```
-* install boto3
+* install requirements
 ```
 pip install boto3
+pip install bs4
 ```
 
 
