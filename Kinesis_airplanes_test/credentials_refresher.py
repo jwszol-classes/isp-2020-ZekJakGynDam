@@ -6,6 +6,7 @@ from bs4 import BeautifulSoup
 def extract_aws_credentials(page_text):
     soup = BeautifulSoup(page_text, 'html.parser')
     pres = soup.find_all('pre')
+    print(pres)
     aws_credentials = pres[0].text
     return aws_credentials
 
