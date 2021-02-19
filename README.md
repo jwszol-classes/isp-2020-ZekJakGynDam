@@ -125,8 +125,6 @@ cd Projects
 ```
 git clone git@github.com:jwszol-classes/isp-2020-ZekJakGynDam.git
 cd isp-2020-ZekJakGynDam/
-git checkout -b simple_visualization
-git pull git@github.com:jwszol-classes/isp-2020-ZekJakGynDam.git simple_visualization
 ```
 * setup repository
 ```
