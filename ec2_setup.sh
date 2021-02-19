@@ -26,3 +26,5 @@ cd ../..
 rm -r -f opensky-api/
 
 pip install -r requirements.txt
+
+python airplanes_dynamodb_tables_creator.py

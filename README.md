@@ -2,6 +2,12 @@
 Project with use of AWS that is used to visualize airplanes that are located in Poland.
 This branch is used as simplified version of entire project.
 
+### Technologies used and data flow
+![diagram](https://github.com/jwszol-classes/isp-2020-ZekJakGynDam/blob/master/src/diagram_simple.png)
+
+### Exemplary view on airplanes above Poland
+![diagram](https://github.com/jwszol-classes/isp-2020-ZekJakGynDam/blob/master/src/final_view_simple.png)
+
 ## Setup
 Create virtual environment:
 ```

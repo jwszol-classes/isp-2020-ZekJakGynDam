@@ -73,6 +73,6 @@ class KinesisProducer(threading.Thread):
         #dodac wyjatek jezeli stream nie istnieje
 
 
-
-Producer = KinesisProducer("kinesis_data_stream_airplanes", sleep_interval=15)
-Producer.run()
+def producer():
+    Producer = KinesisProducer("kinesis_data_stream_airplanes", sleep_interval=15)
+    Producer.run()
