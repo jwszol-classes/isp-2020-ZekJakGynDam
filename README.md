@@ -141,6 +141,13 @@ source ./ec2_setup.sh
 * paste it into ~/.aws/credentials
 
 
+### DynamoDB
+Go to isp-2020-ZekJakGynDam/ directory in EC2 instance and run:
+```
+python airplanes_dynamodb_tables_creator.py
+```
+
+
 #### Instance setup - create image
 * go to EC2 service
 * click **Instances (running)**
