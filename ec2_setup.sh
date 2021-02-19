@@ -7,10 +7,7 @@ rm -r -f ./aws
 mkdir ~/.aws
 touch ~/.aws/credentials
 touch ~/.aws/config
-echo [default] \
-region = us-east-1 \
-output = json > ~/.aws/config
-
+(echo -e [default]; echo region = us-east-1; echo output = json) > ~/.aws/config
 
 mkdir get_pip
 curl https://bootstrap.pypa.io/get-pip.py -o get_pip/get-pip.py

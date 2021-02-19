@@ -49,50 +49,10 @@ https://www.mapbox.com/maps/
 * on PuTTY Security Alert popup window choose **tak**
 
 
-#### Instance setup - configure vim
-* paste following lines into .vimrc file
-```
-set nu
-syntax on
-set autoindent
-set tabstop=4
-set mouse=a
-:colorscheme zellner
-```
-
-
-#### Instance setup - configure AWS
-* install AWS
-```
-curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-sudo apt-get install unzip
-unzip awscliv2.zip
-sudo ./aws/install
-rm awscliv2.zip
-```
-* create folder for AWS credentials file
-```
-mkdir ~/.aws
-```
-* open labs.vocareum page
-* click **Account Details**
-* click **show**
-* copy showed text
-* paste it into ~/.aws/credentials
-* paste following text into ~/.aws/config:
-```
-[default]
-region = us-east-1
-output = json
-```
+#### Instance setup
 
 
 #### Instance setup - configure git
-* write following command with your data:
-```
-git config --global user.name "full name"
-git config --global user.email "email adress"
-```
 * generate ssh keys:
 ```
 ssh-keygen -o
@@ -110,48 +70,43 @@ cat ~/.ssh/id_rsa.pub
 * click **Add SSH key**
 
 
+#### Instance setup - configure AWS
+* install AWS
+```
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+sudo apt-get install unzip
+unzip awscliv2.zip
+sudo ./aws/install
+rm awscliv2.zip
+rm -r -f ./aws
+```
+* create folder for AWS credentials file
+```
+mkdir ~/.aws
+```
+* open labs.vocareum page
+* click **Account Details**
+* click **show**
+* copy showed text
+* paste it into ~/.aws/credentials
+
+
 #### Instance setup - prepeare repository
 * write following commands to create directory for all projects:
 ```
 mkdir Projects
 cd Projects
 ```
-* install pip for python3
-```
-mkdir get_pip
-curl https://bootstrap.pypa.io/get-pip.py -o get_pip/get-pip.py
-python3 get_pip/get-pip.py
-```
-* install virtualenv for python3
-```
-python3 -m pip install virtualenv
-```
-* download **isp-2020-ZekJakGynDam** repository:
+* download repository
 ```
 git clone git@github.com:jwszol-classes/isp-2020-ZekJakGynDam.git
-```
-and write "yes" when communicate shows
-* go to repository directory
-```
 cd isp-2020-ZekJakGynDam/
+git checkout -b simple_visualization
+git pull git@github.com:jwszol-classes/isp-2020-ZekJakGynDam.git simple_visualization
 ```
-* create virtual environment and activate it
+* setup repository
 ```
-python3 -m virtualenv venv
-source venv/bin/activate
-```
-* install opensky-api in virtual environment
-```
-git clone https://github.com/openskynetwork/opensky-api
-cd opensky-api/python
-python setup.py install
-cd ../..
-rm -r -f opensky-api/
-```
-* install requirements
-```
-pip install boto3
-pip install bs4
+source ./ec2_setup.sh
 ```
 
 

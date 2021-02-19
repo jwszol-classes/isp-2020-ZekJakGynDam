@@ -20,13 +20,6 @@ def list_airplanes():
         'Longitude': [],
         'Heading':[],
         'ICAO': [],
-        'Flight_from': [],
-        'Flight_to':[],
-        'Departure_time_(planned)':[],
-        'Departure_time':[],
-        'Arrival_time_(planned)':[],
-        'Arrival_time_(estimated)':[],
-        'Delay':[]
     }
     for i in response['Items']:
         # print("I: ",i)
@@ -37,15 +30,6 @@ def list_airplanes():
             data['Longitude'].append(float(i['longitude']))
             data['ICAO'].append(str(i['ICAO24']))
             data['Heading'].append(float(i['heading']))
-            #mogłem się pomylić w nazwach
-            data['Flight_from'].append(str(i['from']))
-            data['Flight_to'].append(str(i['to']))
-            data['Departure_time_(planned)'].append(str(i['departure_time_plan']))
-            data['Departure_time'].append(str(i['departure_time_actual']))
-            data['Arrival_time_(planned)'].append(str(i['arrival_time_plan']))
-            data['Arrival_time_(estimated)'].append(str(i['estimated_arrival_time_datetime']))
-            data['Delay'].append(str(i['estimated_delay']))
-            
     return data
 
 

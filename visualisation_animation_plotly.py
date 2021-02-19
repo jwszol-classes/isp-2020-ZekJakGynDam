@@ -75,7 +75,7 @@ def update_graph_live(n):
 
     df = pd.DataFrame(data)
     fig = px.scatter_mapbox(df,lat= "Latitude",lon= "Longitude",
-    hover_data=['ICAO', "Flight_from",'Flight_to','Departure_time_(planned)','Departure_time','Arrival_time_(planned)','Arrival_time_(estimated)','Delay'])
+    hover_data=['ICAO'])
     fig.update_traces(marker=dict(color="Darkred", size=7))
     # fig.add_trace(go.Scattermapbox(
     #     lon=allpoints['Lon'], 
