@@ -49,9 +49,6 @@ https://www.mapbox.com/maps/
 * on PuTTY Security Alert popup window choose **tak**
 
 
-#### Instance setup
-
-
 #### Instance setup - configure git
 * generate ssh keys:
 ```
@@ -68,27 +65,6 @@ cat ~/.ssh/id_rsa.pub
 * click **New SSH key**
 * provide **Title** (for example "ec2_ubuntu_instance") and **Key** (showed earlier public key)
 * click **Add SSH key**
-
-
-#### Instance setup - configure AWS
-* install AWS
-```
-curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-sudo apt-get install unzip
-unzip awscliv2.zip
-sudo ./aws/install
-rm awscliv2.zip
-rm -r -f ./aws
-```
-* create folder for AWS credentials file
-```
-mkdir ~/.aws
-```
-* open labs.vocareum page
-* click **Account Details**
-* click **show**
-* copy showed text
-* paste it into ~/.aws/credentials
 
 
 #### Instance setup - prepeare repository
@@ -108,6 +84,13 @@ git pull git@github.com:jwszol-classes/isp-2020-ZekJakGynDam.git simple_visualiz
 ```
 source ./ec2_setup.sh
 ```
+
+#### Instance setup - configure AWS
+* open labs.vocareum page
+* click **Account Details**
+* click **show**
+* copy showed text
+* paste it into ~/.aws/credentials
 
 
 #### Instance setup - create image

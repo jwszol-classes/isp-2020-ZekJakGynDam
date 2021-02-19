@@ -2,7 +2,7 @@ import time
 import datetime
 from datetime import timezone
 import threading
-#import boto3
+import boto3
 import m_opensky as OPENSKY
 import json
 import struct 
@@ -13,7 +13,7 @@ credentials_path = "credentials.json"
 credentials = json.load(open(credentials_path, "r"))
 username = credentials["opensky_api"]["username"]
 password = credentials["opensky_api"]["password"]
-#kinesis=boto3.client('kinesis')
+kinesis=boto3.client('kinesis')
 
 
 class KinesisProducer(threading.Thread):
@@ -26,7 +26,7 @@ class KinesisProducer(threading.Thread):
         self.shards_number=5
         #self.tab=["bbb-jeden","--dwojeczka","cc-trzy","cc-cztery","cc-piec","cc-szesc"]
 
-        import boto3
+        # import boto3
         self.boto3 = boto3
         self.kinesis = self.boto3.client('kinesis')
 
@@ -56,10 +56,10 @@ class KinesisProducer(threading.Thread):
     def run_continously(self):
         """put a record at regular intervals"""
         while True:
-            credentials_refresher.get_and_save_actual_aws_credentials(credentials)
-            import boto3
-            self.boto3 = boto3
-            self.kinesis = self.boto3.client('kinesis')
+            # credentials_refresher.get_and_save_actual_aws_credentials(credentials)
+            # import boto3
+            # self.boto3 = boto3
+            # self.kinesis = self.boto3.client('kinesis')
 
             self.prep_records()
             time.sleep(self.sleep_interval)
