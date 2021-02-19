@@ -147,25 +147,13 @@ source ./ec2_setup.sh
 * click right mouse button on instance
 * choose **Image and templates**
 * choose **Create image**
-* provide **Image name** (for example "airplanes_image")
+* provide **Image name** (for example "image_airplanes")
 * uncheck **Delete on termination** checkbox
 * click **Create image**
 * go to EC2 service
 * go to Images/AMIs
 * wait until **Status** of your image change into "available" (don't terminate instance until then!!!)
 
-
-### Setup Basemap
-
-#### Windows
-
-* Download **basemap‑1.2.2‑cpxx‑cpxx‑win_amd64.whl** file from following link https://www.lfd.uci.edu/~gohlke/pythonlibs/#basemap and save it in project main directory.
-* write following command in cmd:
-```
-pip install basemap‑1.2.2‑cpxx‑cpxx‑win_amd64.whl
-```
-where xx is your python version e.g. 38 for python 3.8
-#### Linux
 
 ### Kinesis
 * go to Kinesis service
@@ -322,14 +310,10 @@ On EC2 instance run to read airplanes data:
 python kinesis\producer.py
 ```
 On local machine run to visualization airplanes:
-```
-python visualisation_animation_basemap.py
-```
-or
-```
+
 python visualisation_animation_plotly.py
 ```
-In second case open following url link in browser:
+Open following url link in browser:
 ```
 http://127.0.0.1:8050/
 ```
