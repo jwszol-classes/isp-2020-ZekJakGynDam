@@ -315,7 +315,7 @@ On EC2 instance run to read airplanes data:
 python kinesis\producer.py
 ```
 On local machine run to visualization airplanes:
-
+```
 python visualisation_animation_plotly.py
 ```
 Open following url link in browser:
