@@ -6,10 +6,6 @@ import datetime
 from datetime import timezone
 import boto3
 
-import geographical_distance
-import flightradar
-import sexagesimal_to_decimal_converter
-
 
 def get_decoded_data(record):
     decoded_data = base64.b64decode(record["kinesis"]["data"]).decode("utf8")
