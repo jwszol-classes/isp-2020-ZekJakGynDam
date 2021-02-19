@@ -20,6 +20,8 @@ def list_airplanes():
         'Longitude': [],
         'Heading':[],
         'ICAO': [],
+        'velocity': [],
+        'on_ground': [],
     }
     for i in response['Items']:
         # print("I: ",i)
@@ -30,6 +32,8 @@ def list_airplanes():
             data['Longitude'].append(float(i['longitude']))
             data['ICAO'].append(str(i['ICAO24']))
             data['Heading'].append(float(i['heading']))
+            data['velocity'].append(float(i['velocity']))
+            data['on_ground'].append(str(i['on_ground']))
     return data
 
 
