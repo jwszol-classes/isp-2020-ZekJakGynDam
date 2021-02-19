@@ -76,3 +76,7 @@ class KinesisProducer(threading.Thread):
 def producer():
     Producer = KinesisProducer("kinesis_data_stream_airplanes", sleep_interval=15)
     Producer.run()
+
+
+if __name__ == "__main__":
+    producer()

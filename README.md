@@ -5,6 +5,48 @@ This branch is used as simplified version of entire project.
 ### Technologies used and data flow
 ![diagram](https://github.com/jwszol-classes/isp-2020-ZekJakGynDam/blob/master/src/diagram_simple.png)
 
+
+### AWS EC2 instance
+AWS EC2 instance is used for running continuous program that send request to Opensky-Api in order to get data such as:
+
+* ICAO24
+* timestamp
+* latitude
+* longtitude
+* heading
+* information if airplane is on ground
+* velocity
+
+about all airplanes that are currently above geographic bounding box (49.0273953314, 54.8515359564, 14.0745211117, 24.0299857927) (min_latitude, max_latitude, min_longitude, max_latitude) that is based on the extreme geographical points of Poland. These data (together with timestamp of performed request) are then send to Kinesis data stream.
+
+### Kinesis data stream
+Kinesis data stream gets data about airplanes and distribute them to different shards, that provide them into AWS Lambda.
+
+### AWS Lambda
+Because data received from Opensky-Api contain data about all airplanes in specified geographic bounding box, then these contains data about airplanes above Poland, and some of neighboring countries. AWS Lambda is then used in order to remove data about airplanes that aren't above Poland. On the end of AWS Lambda function, the most important data are saved into AWS DynamoDB tables.
+
+
+### AWS DynamoDB
+AWS DynamoDB is used as storage for historical and last data of airplanes above Poland in two tables.
+
+* Table for historical data has primary key which is ICAO24 of airplane and sort key which is timestamp of sending request to Opensky-API
+
+* Table for last data has only primary key which is ICAO24. Lack of sort key enable to overwrite data for each airplane
+
+Each table contain following columns:
+* ICAO24
+* timestamp
+* datetime
+* latitude
+* longitude
+* heading
+* velocity
+
+
+### Local Machine
+Local Machine (that is personal computer) is used to repeatedly reading data from DynamoDB table with last airplanes data and visualize them with use of Mapbox.
+
+
 ### Exemplary view on airplanes above Poland
 ![diagram](https://github.com/jwszol-classes/isp-2020-ZekJakGynDam/blob/master/src/final_view_simple.png)
 
