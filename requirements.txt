@@ -1,6 +1,8 @@
+beautifulsoup4==4.9.3
 boto3==1.16.43
 botocore==1.19.43
 Brotli==1.0.9
+bs4==0.0.1
 certifi==2020.12.5
 chardet==4.0.0
 click==7.1.2
@@ -39,6 +41,7 @@ reverse-geocode==1.4.1
 s3transfer==0.3.3
 scipy==1.5.4
 six==1.15.0
+soupsieve==2.1
 statsmodels==0.12.1
 urllib3==1.26.2
 Werkzeug==1.0.1

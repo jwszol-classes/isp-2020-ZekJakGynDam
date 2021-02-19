@@ -209,7 +209,7 @@ where xx is your python version e.g. 38 for python 3.8
 
 #### Adding resources
 * go to isp-2020-ZekJakGynDam\lambda directory
-* zip all files in this directory into .zip archive (for example "lambda.zip")
+* zip all files (without "old" directory) in this directory into .zip archive (for example "lambda.zip")
 * in lambda function page click on **lambda_function_airplanes**
 * Under **Function code** section click **Actions**
 * choose **Upload a .zip file**

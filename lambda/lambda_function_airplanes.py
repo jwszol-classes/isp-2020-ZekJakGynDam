@@ -85,15 +85,11 @@ def lambda_handler_airplanes(event, context):
     # Set configuration variables
     country = "Poland"
     data_delimiter = "|"
-    airports_dict_path = "airports_poland.json"
 
     # Set DynamoDB variables
     dynamodb                   = boto3.resource("dynamodb")
     airplanes_historical_table = dynamodb.Table("AirplanesHistorical")
     airplanes_last_table       = dynamodb.Table("AirplanesLast")
-    # airplanes_flights_table    = dynamodb.Table("AirplanesFlights")
-
-    airports_dict = json.load(open(airports_dict_path, "r"))
 
     # Main loop for each record
     for record in event["Records"]:
@@ -107,7 +103,7 @@ def lambda_handler_airplanes(event, context):
             continue
 
         # Create items for tables
-        item_for_airplanes_last = create_item_for_airplanes_last(airplane_data)
+        item_for_airplanes_last = create_item_for_airplanes_last(airplane_data_opensky)
 
         # Update DynamoDB tables
         add_record(item_for_airplanes_last, airplanes_last_table)
