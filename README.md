@@ -122,19 +122,19 @@ where xx is your python version e.g. 38 for python 3.8
 ### Kinesis
 * go to Kinesis service
 * choose **Create data stream**
-* provide **Data stream name** (for example "airplanes_stream")
-* provide **Number of open shards** as 1
+* provide **Data stream name** (for example "kinesis_data_stream_airplanes")
+* provide **Number of open shards** (for example 2)
 * click **Create data stream**
 
 
-### AWS Lambda
+### Lambda
 #### Creating Lambda Function 
 * go to Lambda service
 * click **Create function**
 * choose **Author from scratch**
-* provide **Function name** (for example "airplanes_lambda_function")
+* provide **Function name** (for example "lambda_function_airplanes")
 * provide Runtime (**Python 3.8**)
-* expand **Change default execution role** and remember execution role name assigned to lambda function (for example "airplanes_lambda_function-role-16dg8abt")
+* expand **Change default execution role** and remember execution role name assigned to lambda function (for example "lambda_function_airplanes-role-j0wqruq6")
 * click **Create function**
 
 
@@ -147,9 +147,9 @@ where xx is your python version e.g. 38 for python 3.8
 #### Adding Trigger
 * click **Add trigger**
 * select a **trigger** ("Kinesis")
-* choose **Kinesis stream** (name of earlier created stream, for example "stream_airplanes")
+* choose **Kinesis stream** (name of earlier created stream, for example "kinesis_data_stream_airplanes")
 * in another tab go to **IAM** service into **Roles**
-* search for execution role name assigned to lambda function (for example "lambda_airplanes-role-p5nao7pr") and choose it
+* search for execution role name assigned to lambda function (for example "lambda_function_airplanes-role-j0wqruq6") and choose it
 * click **Attach policies**
 * click **Create policy**
 * choose **JSON**
@@ -208,14 +208,14 @@ where xx is your python version e.g. 38 for python 3.8
 
 
 #### Adding resources
-* go to isp-2020-ZekJakGynDam\aws_lambda directory
-* zip all files in this directory into .zip archive (for example "aws_lambda.zip")
-* in lambda function page click on **airplanes_lambda_function**
+* go to isp-2020-ZekJakGynDam\lambda directory
+* zip all files in this directory into .zip archive (for example "lambda.zip")
+* in lambda function page click on **lambda_function_airplanes**
 * Under **Function code** section click **Actions**
 * choose **Upload a .zip file**
 * find and save "aws_lambda.zip"
 * go under **Runtime settings** settings and click **Edit**
-* change Handler into "airplanes_lambda_function.airplanes_lambda_handler"
+* change Handler into "lambda_function_airplanes.lambda_handler_airplanes"
 * click **Save**
 
 
@@ -271,7 +271,7 @@ Prepare credentials.json file in main project directory by duplicate credentials
 ## Run
 On EC2 instance run to read airplanes data:
 ```
-python Kinesis_airplanes_test\producer.py
+python kinesis\producer.py
 ```
 On local machine run to visualization airplanes:
 ```
