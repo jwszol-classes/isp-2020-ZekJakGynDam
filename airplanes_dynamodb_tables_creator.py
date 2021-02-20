@@ -81,10 +81,15 @@ def create_airplanes_tables(dynamodb, region_name):
         print(table_name, "status: table already exists and thus isn't created")
 
 
-if __name__ == "__main__":
+def create_dynamodb_airplanes():
     region_name = 'us-east-1'
     dynamodb = boto3.resource('dynamodb', region_name=region_name)
     try:
         create_airplanes_tables(dynamodb, region_name)
     except botocore.exceptions.ClientError:
         print("Credentials are out-of-date")
+
+
+
+if __name__ == "__main__":
+    create_dynamodb_airplanes()
