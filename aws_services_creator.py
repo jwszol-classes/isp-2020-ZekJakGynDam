@@ -130,7 +130,7 @@ def create_aws_services(aws_services_dict):
     create_bucket(**aws_services_dict["S3"])
 
     # Send .zip file on S3 bucket
-    send_zip_file_to_S3(**aws_services_dict["S3"], aws_services_dict["Lambda"]["Code"]["S3Key"])
+    send_zip_file_to_S3(aws_services_dict["S3"]["bucket_name"], aws_services_dict["Lambda"]["Code"]["S3Key"])
 
     # Create IAM for Lambda
     create_iam(aws_services_dict)
