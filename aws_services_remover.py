@@ -126,5 +126,5 @@ def delete_aws_services(aws_services_dict):
 
     
 if __name__ == "__main__":
-    aws_services_dict = json.load(open('resources/aws_services_config.json', 'r')) 
+    aws_services_dict = json.load(open('aws_services_config.json', 'r')) 
     delete_aws_services(aws_services_dict)
