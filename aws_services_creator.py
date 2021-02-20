@@ -84,8 +84,12 @@ def create_iam(aws_services_dict):
 
     client = boto3.client('iam')
     try:
+        aws_services_dict_formatted = aws_services_dict["IAM"]["Lambda"]
+        aws_services_dict_formatted["AssumeRolePolicyDocument"] = \
+            str(aws_services_dict_formatted["AssumeRolePolicyDocument"]).replace("'", "\"")
+
         response = client.create_role(
-            **aws_services_dict["IAM"]["Lambda"]
+            **aws_services_dict_formatted
         )
     except ClientError as e:
         # logging.error(e)
@@ -93,8 +97,8 @@ def create_iam(aws_services_dict):
 
     for PolicyArn in aws_services_dict["IAM"]["policies_to_attach"]:
         response = client.attach_role_policy(
-            RoleName=aws_services_dict["IAM"]["Lambda"]["RoleName"], 
-            PolicyArn=PolicyArn
+                RoleName=aws_services_dict["IAM"]["Lambda"]["RoleName"], 
+                PolicyArn=PolicyArn
             )
 
 
