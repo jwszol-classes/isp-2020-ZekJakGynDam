@@ -16,10 +16,10 @@ def list_airplanes():
     response = table.scan()
     airplanes = []
     data = {
-        'Latitude': [],
-        'Longitude': [],
-        'Heading':[],
-        'ICAO': [],
+        'latitude': [],
+        'longitude': [],
+        'heading':[],
+        'icao24': [],
         'velocity': [],
         'on_ground': [],
     }
@@ -28,10 +28,10 @@ def list_airplanes():
         diff=datetime.datetime.now().timestamp() - float(i['timestamp'])
         # print("SEKUNDY: ", diff)
         if diff < time_eps:
-            data['Latitude'].append(float(i['latitude']))
-            data['Longitude'].append(float(i['longitude']))
-            data['ICAO'].append(str(i['ICAO24']))
-            data['Heading'].append(float(i['heading']))
+            data['latitude'].append(float(i['latitude']))
+            data['longitude'].append(float(i['longitude']))
+            data['icao24'].append(str(i['ICAO24']))
+            data['heading'].append(float(i['heading']))
             data['velocity'].append(float(i['velocity']))
             data['on_ground'].append(str(i['on_ground']))
     return data

@@ -74,16 +74,16 @@ def update_graph_live(n):
 
 
     df = pd.DataFrame(data)
-    fig = px.scatter_mapbox(df,lat= "Latitude",lon= "Longitude",
-    hover_data=['ICAO', "velocity", "on_ground"])
+    fig = px.scatter_mapbox(df,lat= "latitude",lon= "longitude",
+    hover_data=['icao24', "velocity", "heading", "on_ground"])
     fig.update_traces(marker=dict(color="Darkred", size=7))
     # fig.add_trace(go.Scattermapbox(
     #     lon=allpoints['Lon'], 
     #     lat = allpoints['Lat'],
     #     mode='markers',
     #     marker=go.scattermapbox.Marker( size=5, color="rgb(100, 100, 100)", opacity=0.5)))
-    allpoints['Lon']+=data['Longitude']
-    allpoints['Lat']+=data['Latitude']
+    allpoints['Lon']+=data['longitude']
+    allpoints['Lat']+=data['latitude']
     print(len(allpoints['Lat']))
     fig.update_layout(height=1000,showlegend=False)
     fig.update_mapboxes(accesstoken=access_token,
