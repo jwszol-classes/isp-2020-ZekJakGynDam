@@ -28,7 +28,10 @@ def remove_old_zip(zip_filename = "lambda/lambda.zip"):
 
 
 def create_zip(zip_filename = "lambda/lambda"):
-    shutil.make_archive(zip_filename, 'zip', "lambda")
+    if zip_filename[-4:] = ".zip"
+        shutil.make_archive(zip_filename[:-4], 'zip', "lambda")
+    else:
+        shutil.make_archive(zip_filename, 'zip', "lambda")
     print("The new file", zip_filename, "is created.")
 
 
