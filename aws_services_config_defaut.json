@@ -51,7 +51,8 @@
         "policies_to_attach": [
             "arn:aws:iam::XxXxxXXxxXxX:policy/AWSLambdaMicroserviceExecutionRole",
             "arn:aws:iam::XxXxxXXxxXxX:policy/AWSLambdaTestHarnessExecutionRole",
-            "arn:aws:iam::aws:policy/AmazonKinesisFullAccess"
+            "arn:aws:iam::aws:policy/AmazonKinesisFullAccess",
+            "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
         ],
         "Lambda": {
             "Path": "/",
