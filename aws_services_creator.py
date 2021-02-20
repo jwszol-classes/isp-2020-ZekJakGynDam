@@ -8,6 +8,7 @@ import logging
 import sys
 from botocore.exceptions import ClientError
 import json
+import time
 
 
 def create_kinesis_data_stream_airplanes(stream_name="kinesis_data_stream_airplanes", shard_count=2, region="us-east-1"):
@@ -68,8 +69,8 @@ def create_policy(PolicyName, PolicyDocument):
             PolicyDocument=str(PolicyDocument).replace("'", "\"")
         )
     except ClientError as e:
-        # logging.error(e)
-        print("Policy" , "\"" + PolicyName + "\" already exists and thus is not created.")
+        logging.error(e)
+        # print("Policy" , "\"" + PolicyName + "\" already exists and thus is not created.")
 
 
 def create_policies(policies_list):
@@ -92,8 +93,8 @@ def create_iam(aws_services_dict):
             **aws_services_dict_formatted
         )
     except ClientError as e:
-        # logging.error(e)
-        print("IAM" , "\"" + aws_services_dict["IAM"]["Lambda"]["RoleName"] + "\" already exists and thus is not created.")
+        logging.error(e)
+        # print("IAM" , "\"" + aws_services_dict["IAM"]["Lambda"]["RoleName"] + "\" already exists and thus is not created.")
 
     for PolicyArn in aws_services_dict["IAM"]["policies_to_attach"]:
         response = client.attach_role_policy(
@@ -104,20 +105,25 @@ def create_iam(aws_services_dict):
 
 def create_lambda_function(aws_services_dict):
     client = boto3.client('lambda')
-    create_lambda_function = client.create_function(
-        **aws_services_dict["Lambda"]
-    )
+    try:
+        create_lambda_function = client.create_function(
+            **aws_services_dict["Lambda"]
+        )
+    except ClientError as e:
+        logging.error(e)
+    #     print("Lambda function", aws_services_dict["Lambda"]["FunctionName"], "already exists and thus isn't created")
 
 
 def create_table(table):
     dynamodb_client = boto3.client('dynamodb')
     try:
-        table = dynamodb.create_table(
+        table1 = dynamodb_client.create_table(
             **table
         )
-        print(table_name, "status:", table.table_status)
+        print(table["TableName"], "status:", table1)
     except ClientError as e:
-        print("Table", table_name["TableName"], "already exists and thus isn't created")
+        logging.error(e)
+        # print("Table", table["TableName"], "already exists and thus isn't created")
 
 
 def create_dynamodb_tables(aws_services_dict):
@@ -141,6 +147,9 @@ def create_aws_services(aws_services_dict):
 
     # Create IAM for Lambda
     create_iam(aws_services_dict)
+
+    # For some reason we need to wait some time between creating role and creating lambda function
+    time.sleep(10)
 
     # Create Lambda function
     create_lambda_function(aws_services_dict)

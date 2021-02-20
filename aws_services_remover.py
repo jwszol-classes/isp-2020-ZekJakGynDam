@@ -19,7 +19,8 @@ def delete_kinesis_data_stream(aws_services_dict):
         )
         print(response)
     except ClientError as e:
-        print("Kinesis data stream", aws_services_dict["Kinesis"]["stream_name"], "not exists and thus is not deleted")
+        logging.error(e)
+        # print("Kinesis data stream", aws_services_dict["Kinesis"]["stream_name"], "not exists and thus is not deleted")
 
 
 def delete_dynamodb_tables(aws_services_dict):
@@ -29,7 +30,8 @@ def delete_dynamodb_tables(aws_services_dict):
             dynamodb_table = dynamodb.Table(table["TableName"])
             dynamodb_table.delete()
         except ClientError as e:
-            print("DynamoDB table", table["TableName"], "not exists and thus is not deleted")
+            logging.error(e)
+            # print("DynamoDB table", table["TableName"], "not exists and thus is not deleted")
 
 
 def delete_old_zip(zip_filename = "lambda/lambda.zip"):
@@ -54,7 +56,8 @@ def delete_s3_bucket(aws_services_dict):
         bucket = s3.Bucket(aws_services_dict["S3"]["bucket_name"])
         bucket.delete()
     except ClientError as e:
-        print("S3 bucket", aws_services_dict["S3"]["bucket_name"], "not exists and thus is not deleted")
+        logging.error(e)
+        # print("S3 bucket", aws_services_dict["S3"]["bucket_name"], "not exists and thus is not deleted")
 
 
 def delete_lambda_function(aws_services_dict):
@@ -64,7 +67,8 @@ def delete_lambda_function(aws_services_dict):
             FunctionName=aws_services_dict["Lambda"]["FunctionName"],
         )
     except ClientError as e:
-        print("Lambda function", aws_services_dict["Lambda"]["FunctionName"], "not exists and thus is not deleted")
+        logging.error(e)
+        # print("Lambda function", aws_services_dict["Lambda"]["FunctionName"], "not exists and thus is not deleted")
 
 
 def delete_iam(aws_services_dict):
@@ -78,7 +82,8 @@ def delete_iam(aws_services_dict):
             )
             print(response)
         except ClientError as e:
-            print("IAM", aws_services_dict["IAM"]["Lambda"]["RoleName"], "not exists and thus policy ARN", PolicyArn, "is not detached")
+            logging.error(e)
+            # print("IAM", aws_services_dict["IAM"]["Lambda"]["RoleName"], "not exists and thus policy ARN", PolicyArn, "is not detached")
 
     try:
         response = client.delete_role(
@@ -86,7 +91,8 @@ def delete_iam(aws_services_dict):
         )
         print(response)
     except ClientError as e:
-        print("IAM", aws_services_dict["IAM"]["Lambda"]["RoleName"], "not exists and thus is not deleted")
+        logging.error(e)
+        # print("IAM", aws_services_dict["IAM"]["Lambda"]["RoleName"], "not exists and thus is not deleted")
 
 
 def delete_policies(aws_services_dict):
@@ -94,12 +100,15 @@ def delete_policies(aws_services_dict):
     for PolicyArn in aws_services_dict["IAM"]["policies_to_attach"]:
         if PolicyArn == "arn:aws:iam::aws:policy/AmazonKinesisFullAccess":
             continue
+        elif PolicyArn == "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole":
+            continue
         else:
             try:
                 response = client.delete_policy(PolicyArn=PolicyArn)
                 print(response)
             except ClientError as e:
-                print("Policy ARN", PolicyArn, "not exists and thus is not deleted")
+                logging.error(e)
+                # print("Policy ARN", PolicyArn, "not exists and thus is not deleted")
 
 
 def delete_aws_services(aws_services_dict):
