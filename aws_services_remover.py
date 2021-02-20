@@ -34,7 +34,7 @@ def delete_dynamodb_tables(aws_services_dict):
 
 def delete_old_zip(zip_filename = "lambda/lambda.zip"):
     if os.path.exists(zip_filename):
-        os.delete(zip_filename)
+        os.remove(zip_filename)
         print("The old file", zip_filename, "is deleted.")
     else:
         print("The file", zip_filename, "doesn't exists.")
@@ -78,7 +78,7 @@ def delete_iam(aws_services_dict):
             )
             print(response)
         except ClientError as e:
-            print("IAM", aws_services_dict["IAM"]["Lambda"]["RoleName"], "not exists and thus policy ARN", PolicyArn, " is not detached")
+            print("IAM", aws_services_dict["IAM"]["Lambda"]["RoleName"], "not exists and thus policy ARN", PolicyArn, "is not detached")
 
     try:
         response = client.delete_role(
@@ -99,7 +99,7 @@ def delete_policies(aws_services_dict):
                 response = client.delete_policy(PolicyArn=PolicyArn)
                 print(response)
             except ClientError as e:
-                print("policy ARN", PolicyArn, "not exists and thus is not deleted")
+                print("Policy ARN", PolicyArn, "not exists and thus is not deleted")
 
 
 def delete_aws_services(aws_services_dict):
