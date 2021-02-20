@@ -8,3 +8,7 @@ def create_kinesis_data_stream_airplanes(stream_name="kinesis_data_stream_airpla
     --region ' + str(region)
 
     os.system(command)
+
+
+if __name__ == "__main__":
+    create_kinesis_data_stream_airplanes()
