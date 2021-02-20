@@ -123,12 +123,12 @@ def create_event_source_mapping(aws_services_dict):
         print(response)
 
         aws_services_dict["Lambda_source_mapping"]["delete"]["UUID"] = response["UUID"]
-        json.dump(aws_services_dict, open('aws_services_config.json', 'w'))
+        json.dump(aws_services_dict, open('aws_services_config.json', 'w'), indent=4)
     except ClientError as e:
         logging.error(e)
-        
+
         aws_services_dict["Lambda_source_mapping"]["delete"]["UUID"] = str(e).split(" UUID ")[1]
-        json.dump(aws_services_dict, open('aws_services_config.json', 'w'))
+        json.dump(aws_services_dict, open('aws_services_config.json', 'w'), indent=4)
 
 
 def create_table(table):
