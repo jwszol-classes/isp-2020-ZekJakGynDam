@@ -89,7 +89,7 @@
             "StartingPosition": "LATEST"
         },
         "delete": {
-            "UUID": "90112e5b-2c9f-4403-81e3-85ea098dcc5b"
+            "UUID": null
         }
     },
     "DynamoDB": {
