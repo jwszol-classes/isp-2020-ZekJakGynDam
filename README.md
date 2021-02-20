@@ -139,13 +139,6 @@ source ./ec2_setup.sh
 * paste it into ~/.aws/credentials
 
 
-### DynamoDB
-Go to isp-2020-ZekJakGynDam/ directory in EC2 instance and run:
-```
-python airplanes_dynamodb_tables_creator.py
-```
-
-
 #### Instance setup - create image
 * go to EC2 service
 * click **Instances (running)**
@@ -160,114 +153,24 @@ python airplanes_dynamodb_tables_creator.py
 * wait until **Status** of your image change into "available" (don't terminate instance until then!!!)
 
 
-### Kinesis
-* go to Kinesis service
-* choose **Create data stream**
-* provide **Data stream name** (for example "kinesis_data_stream_airplanes")
-* provide **Number of open shards** (for example 2)
-* click **Create data stream**
 
+### Prepare AWS Services
 
-### Lambda
-#### Creating Lambda Function 
-* go to Lambda service
-* click **Create function**
-* choose **Author from scratch**
-* provide **Function name** (for example "lambda_function_airplanes")
-* provide Runtime (**Python 3.8**)
-* expand **Change default execution role** and remember execution role name assigned to lambda function (for example "lambda_function_airplanes-role-j0wqruq6")
-* click **Create function**
+#### Kinesis, S3, Lambda, DynamoDB
+* go to ~/Projects/isp-2020-ZekJakGynDam/ on EC2 instance
+* Prepare aws_services_config.json file in main project directory by aws_services_config_default.json and changing each "XxXxxXXxxXxX" into your AWS user id (12 digits) (don't add this file to repository!). You can also change names of each AWS services elements in this file.
+* run following command:
+```
+python aws_services_creator.py
+```
 
-
-#### Adding layer with numpy and scipy modules
-* click **Layers** and choose **Add a layer**
-* choose **AWS layers** ("AWSLambda-Python38-SciPy1x") and **Version** ("29")
+#### Adding Trigger to Lambda function
+* click **Add trigger**
+* select a **trigger** ("Kinesis")
+* choose **Kinesis stream** ("kinesis_data_stream_airplanes")
 * click **Add**
 
 
-#### Adding Trigger
-* click **Add trigger**
-* select a **trigger** ("Kinesis")
-* choose **Kinesis stream** (name of earlier created stream, for example "kinesis_data_stream_airplanes")
-* in another tab go to **IAM** service into **Roles**
-* search for execution role name assigned to lambda function (for example "lambda_function_airplanes-role-j0wqruq6") and choose it
-* click **Attach policies**
-* click **Create policy**
-* choose **JSON**
-* paste following code into input text
-```
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Action": [
-                "dynamodb:DeleteItem",
-                "dynamodb:GetItem",
-                "dynamodb:PutItem",
-                "dynamodb:Scan",
-                "dynamodb:UpdateItem"
-            ],
-            "Resource": "arn:aws:dynamodb:us-east-1:340900857390:table/*"
-        }
-    ]
-}
-```
-* click **Review policy**
-* provide name of policy (for example "AWSLambdaMicroserviceExecutionRole")
-* click **Create policy**
-* click **Create policy**
-* choose **JSON**
-* paste following code into input text
-```
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Action": [
-                "dynamodb:PutItem"
-            ],
-            "Resource": "arn:aws:dynamodb:us-east-1:340900857390:table/*"
-        },
-        {
-            "Effect": "Allow",
-            "Action": [
-                "lambda:InvokeFunction"
-            ],
-            "Resource": "arn:aws:lambda:us-east-1:340900857390:function:*"
-        }
-    ]
-}
-```
-* click **Review policy**
-* provide name of policy (for example "AWSLambdaTestHarnessExecutionRole")
-* click **Create policy**
-* search and check **AmazonKinesisFullAccess** and two earlier created policies
-* click **Attach policy**
-* go back to trigger configuration tab and click **Add**
-
-
-#### Adding resources
-* go to isp-2020-ZekJakGynDam\lambda directory
-* zip all files (without "old" directory) in this directory into .zip archive (for example "lambda.zip")
-* in lambda function page click on **lambda_function_airplanes**
-* Under **Function code** section click **Actions**
-* choose **Upload a .zip file**
-* find and save "aws_lambda.zip"
-* go under **Runtime settings** settings and click **Edit**
-* change Handler into "lambda_function_airplanes.lambda_handler_airplanes"
-* click **Save**
-
-
-#### Configuration
-* go under **Basic settings** section and click **Edit**
-* set **Memory (MB)** as 1024
-* set **Timeout** as 30 sec
-* click **save**
-
-#### Congratulations
-You have just configured AWS Lambda function for checking if airplane is above Poland and updating DynamoDB tables! Congratulations.
 
 ### Local machine configuration
 #### Linux Ubuntu
