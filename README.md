@@ -165,6 +165,8 @@ python aws_services_creator.py
 ```
 
 #### Adding Trigger to Lambda function
+* go to **Lambda** service page
+* choose "lambda_function_airplanes" function
 * click **Add trigger**
 * select a **trigger** ("Kinesis")
 * choose **Kinesis stream** ("kinesis_data_stream_airplanes")
