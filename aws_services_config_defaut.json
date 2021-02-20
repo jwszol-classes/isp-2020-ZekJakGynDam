@@ -93,6 +93,9 @@
             "UUID": null
         }
     },
+    "Logs":{
+        "logGroupName":"/aws/lambda/lambda_function_airplanes"
+    },
     "DynamoDB": {
         "tables": [
             {

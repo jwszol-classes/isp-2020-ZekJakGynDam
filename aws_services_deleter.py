@@ -71,6 +71,17 @@ def delete_event_source_mapping(aws_services_dict):
         logging.error(e)
 
 
+def delete_cloud_watch_logs_group(aws_services_dict):
+    client = boto3.client('logs')
+    try:
+        response = client.delete_log_group(
+            **aws_services_dict["Logs"]
+        )
+        print(response)
+    except ClientError as e:
+        logging.error(e)
+
+
 def delete_lambda_function(aws_services_dict):
     client = boto3.client('lambda')
     try:
@@ -144,6 +155,9 @@ def delete_aws_services(aws_services_dict):
 
     # Delete event source mapping
     delete_event_source_mapping(aws_services_dict)
+
+    # Delete Cloud Watch Logs Group
+    delete_cloud_watch_logs_group(aws_services_dict)
 
     # Delete DynamoDB tables
     delete_dynamodb_tables(aws_services_dict)
