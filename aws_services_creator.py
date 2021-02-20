@@ -114,6 +114,19 @@ def create_lambda_function(aws_services_dict):
     #     print("Lambda function", aws_services_dict["Lambda"]["FunctionName"], "already exists and thus isn't created")
 
 
+def create_event_source_mapping(aws_services_dict):
+    client = boto3.client('lambda')
+    try:
+        response = client.create_event_source_mapping(
+            **aws_services_dict["Lambda_source_mapping"]["create"]
+        )
+        print(response)
+        aws_services_dict["Lambda_source_mapping"]["delete"]["UUID"] = response["UUID"]
+        json.dump(aws_services_dict, open('aws_services_config.json', 'w'))
+    except ClientError as e:
+        logging.error(e)
+
+
 def create_table(table):
     dynamodb_client = boto3.client('dynamodb')
     try:
@@ -153,6 +166,9 @@ def create_aws_services(aws_services_dict):
 
     # Create Lambda function
     create_lambda_function(aws_services_dict)
+
+    # Create Lambda function
+    create_event_source_mapping(aws_services_dict)
 
     # Create DynamoDB tables
     create_dynamodb_tables(aws_services_dict)

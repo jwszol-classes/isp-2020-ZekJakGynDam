@@ -60,12 +60,24 @@ def delete_s3_bucket(aws_services_dict):
         # print("S3 bucket", aws_services_dict["S3"]["bucket_name"], "not exists and thus is not deleted")
 
 
+def delete_event_source_mapping(aws_services_dict):
+    client = boto3.client('lambda')
+    try:
+        response = client.delete_event_source_mapping(
+            UUID=aws_services_dict["Lambda_source_mapping"]["delete"]["UUID"]
+        )
+        print(response)
+    except ClientError as e:
+        logging.error(e)
+
+
 def delete_lambda_function(aws_services_dict):
     client = boto3.client('lambda')
     try:
         response = client.delete_function(
             FunctionName=aws_services_dict["Lambda"]["FunctionName"],
         )
+        print(response)
     except ClientError as e:
         logging.error(e)
         # print("Lambda function", aws_services_dict["Lambda"]["FunctionName"], "not exists and thus is not deleted")
@@ -129,6 +141,9 @@ def delete_aws_services(aws_services_dict):
 
     # Delete Lambda function
     delete_lambda_function(aws_services_dict)
+
+    # Delete event source mapping
+    delete_event_source_mapping(aws_services_dict)
 
     # Delete DynamoDB tables
     delete_dynamodb_tables(aws_services_dict)

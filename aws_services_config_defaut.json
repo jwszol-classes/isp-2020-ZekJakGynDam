@@ -1,15 +1,14 @@
 {
-    "Kinesis":{
-        "stream_name": "kinesis_data_stream_airplanes", 
-        "shard_count": 2, 
+    "Kinesis": {
+        "stream_name": "kinesis_data_stream_airplanes",
+        "shard_count": 2,
         "region": "us-east-1"
     },
-    "IAM":{
-        "policies_to_create":[
+    "IAM": {
+        "policies_to_create": [
             {
-                "PolicyName":"AWSLambdaTestHarnessExecutionRole",
-                "PolicyDocument": 
-                {
+                "PolicyName": "AWSLambdaTestHarnessExecutionRole",
+                "PolicyDocument": {
                     "Version": "2012-10-17",
                     "Statement": [
                         {
@@ -30,9 +29,8 @@
                 }
             },
             {
-                "PolicyName":"AWSLambdaMicroserviceExecutionRole",
-                "PolicyDocument":
-                {
+                "PolicyName": "AWSLambdaMicroserviceExecutionRole",
+                "PolicyDocument": {
                     "Version": "2012-10-17",
                     "Statement": [
                         {
@@ -50,54 +48,55 @@
                 }
             }
         ],
-        "policies_to_attach":[
+        "policies_to_attach": [
             "arn:aws:iam::XxXxxXXxxXxX:policy/AWSLambdaMicroserviceExecutionRole",
             "arn:aws:iam::XxXxxXXxxXxX:policy/AWSLambdaTestHarnessExecutionRole",
             "arn:aws:iam::aws:policy/AmazonKinesisFullAccess"
         ],
-        "Lambda":
-        {
-            "Path" : "/",
-            "RoleName" : "lambda_role_airplanes",
-            "AssumeRolePolicyDocument": {
-                "Version": "2012-10-17",
-                "Statement": [
-                  {
-                    "Effect": "Allow",
-                    "Principal": {
-                      "Service": "lambda.amazonaws.com"
-                    },
-                    "Action": "sts:AssumeRole"
-                  }
-                ]
-              },
+        "Lambda": {
+            "Path": "/",
+            "RoleName": "lambda_role_airplanes",
+            "AssumeRolePolicyDocument": "{\"Version\": \"2012-10-17\", \"Statement\": [{\"Effect\": \"Allow\", \"Principal\": {\"Service\": \"lambda.amazonaws.com\"}, \"Action\": \"sts:AssumeRole\"}]}",
             "Description": "IAM for lambda_function_airplanes lambda function"
         }
     },
-    "S3":
-    {
-        "bucket_name":"s3bucketairplanes", 
-        "region":null
+    "S3": {
+        "bucket_name": "s3bucketairplanes",
+        "region": null
     },
-    "Lambda":{
+    "Lambda": {
         "FunctionName": "lambda_function_airplanes",
-        "Handler":"lambda_function_airplanes.lambda_handler_airplanes",
+        "Handler": "lambda_function_airplanes.lambda_handler_airplanes",
         "Runtime": "python3.8",
         "Role": "arn:aws:iam::XxXxxXXxxXxX:role/lambda_role_airplanes",
         "Description": "Get data from Kinesis data stream and send them to DynamoDB",
-        "Layers": ["arn:aws:lambda:us-east-1:668099181075:layer:AWSLambda-Python38-SciPy1x:29"],
-        "MemorySize":1280,
-        "Timeout":300,
-        "Code" : {
-            "S3Bucket":"s3bucketairplanes", 
-            "S3Key":"lambda/lambda.zip"
+        "Layers": [
+            "arn:aws:lambda:us-east-1:668099181075:layer:AWSLambda-Python38-SciPy1x:29"
+        ],
+        "MemorySize": 1280,
+        "Timeout": 300,
+        "Code": {
+            "S3Bucket": "s3bucketairplanes",
+            "S3Key": "lambda/lambda.zip"
         }
     },
-    "DynamoDB":{
-        "tables":[
+    "Lambda_source_mapping": {
+        "create": {
+            "EventSourceArn": "arn:aws:kinesis:us-east-1:XxXxxXXxxXxX:stream/kinesis_data_stream_airplanes",
+            "FunctionName": "lambda_function_airplanes",
+            "Enabled": true,
+            "BatchSize": 100,
+            "StartingPosition": "LATEST"
+        },
+        "delete": {
+            "UUID": "90112e5b-2c9f-4403-81e3-85ea098dcc5b"
+        }
+    },
+    "DynamoDB": {
+        "tables": [
             {
                 "TableName": "AirplanesHistorical",
-                "KeySchema":[
+                "KeySchema": [
                     {
                         "AttributeName": "ICAO24",
                         "KeyType": "HASH"
@@ -107,7 +106,7 @@
                         "KeyType": "RANGE"
                     }
                 ],
-                "AttributeDefinitions":[
+                "AttributeDefinitions": [
                     {
                         "AttributeName": "ICAO24",
                         "AttributeType": "S"
@@ -117,27 +116,26 @@
                         "AttributeType": "N"
                     }
                 ],
-                "ProvisionedThroughput":
-                {
+                "ProvisionedThroughput": {
                     "ReadCapacityUnits": 10,
                     "WriteCapacityUnits": 10
                 }
             },
             {
-                "TableName":"AirplanesLast",
-                "KeySchema":[
+                "TableName": "AirplanesLast",
+                "KeySchema": [
                     {
                         "AttributeName": "ICAO24",
                         "KeyType": "HASH"
                     }
                 ],
-                "AttributeDefinitions":[
+                "AttributeDefinitions": [
                     {
-                        "AttributeName": "ICAO24",                    
+                        "AttributeName": "ICAO24",
                         "AttributeType": "S"
                     }
                 ],
-                "ProvisionedThroughput":{
+                "ProvisionedThroughput": {
                     "ReadCapacityUnits": 10,
                     "WriteCapacityUnits": 10
                 }
