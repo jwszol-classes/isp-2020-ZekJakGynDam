@@ -102,7 +102,7 @@ def create_iam(aws_services_dict):
             )
 
 
-def create_lambda_function():
+def create_lambda_function(aws_services_dict):
     client = boto3.client('lambda')
     create_lambda_function = client.create_function(
         **aws_services_dict["Lambda"]
